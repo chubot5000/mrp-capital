@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRP Capital Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; color: #1a1a1a; }
+h1, h2, h3 { font-family: 'Libre Baskerville', Georgia, serif; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  transition: background .3s, box-shadow .3s;
+}
+nav.scrolled { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+nav.scrolled .nav-link, nav.scrolled .logo-text { color: #1a1a1a !important; }
+nav.scrolled .logo-accent { color: #E84C3D !important; }
+nav.scrolled .nav-logo svg path { fill: #1a1a1a; }
+
+.nav-left { display: flex; align-items: center; gap: 8px; }
+.nav-logo svg { width: 28px; height: 28px; }
+.logo-text { color: #fff; font-weight: 700; font-size: 20px; transition: color .3s; }
+.logo-accent { color: #E84C3D; font-weight: 600; font-size: 14px; letter-spacing: .5px; transition: color .3s; }
+
+.nav-center { display: flex; gap: 32px; }
+.nav-link { color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .3s; }
+.nav-link:hover { opacity: .8; }
+
+.btn-contact {
+  background: #E84C3D; color: #fff; border: none; padding: 10px 24px;
+  border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: opacity .2s;
+}
+.btn-contact:hover { opacity: .85; }
+
+/* HERO */
+.hero {
+  position: relative; height: 55vh; min-height: 400px;
+  background: url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1600&q=80') center/cover no-repeat;
+  display: flex; align-items: flex-end;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top right, rgba(0,0,0,.65) 0%, rgba(0,0,0,.2) 50%, transparent 100%);
+}
+.hero-text {
+  position: relative; z-index: 2; padding: 0 48px 80px;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: clamp(36px, 4vw, 54px); color: #fff; line-height: 1.2;
+  text-shadow: 0 2px 16px rgba(0,0,0,.5);
+}
+
+/* SEARCH MODULE */
+.search-wrap {
+  position: relative; z-index: 10; margin-top: -36px;
+  display: flex; justify-content: center; padding: 0 24px;
+}
+.search-bar {
+  background: #fff; border-radius: 30px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.1);
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; width: 100%; max-width: 900px;
+}
+.search-input-wrap {
+  display: flex; align-items: center; flex: 1; min-width: 0;
+  background: #f5f5f5; border-radius: 24px; padding: 0 4px 0 16px; height: 44px;
+}
+.search-input-wrap input {
+  border: none; background: transparent; outline: none; flex: 1;
+  font-size: 14px; font-family: 'Inter', sans-serif; min-width: 0;
+}
+.search-btn {
+  width: 36px; height: 36px; border-radius: 50%; background: #E84C3D;
+  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.search-btn svg { width: 16px; height: 16px; }
+
+/* DROPDOWN */
+.dropdown { position: relative; }
+.dropdown-toggle {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 24px; border: 1px solid #ddd;
+  background: #fff; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif;
+  white-space: nowrap; user-select: none; color: #1a1a1a;
+}
+.dropdown-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
+.dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  min-width: 180px; overflow: hidden; z-index: 50;
+}
+.dropdown-menu.open { display: block; }
+.dropdown-menu li {
+  list-style: none; padding: 10px 18px; font-size: 14px; cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.dropdown-menu li:hover { background: #E84C3D; color: #fff; }
+
+/* PROPERTIES SECTION */
+.properties-section { padding: 80px 48px 60px; max-width: 1200px; margin: 0 auto; }
+.properties-section h2 { font-size: 32px; margin-bottom: 36px; }
+.property-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.property-card { border-radius: 12px; overflow: hidden; }
+.property-card img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px;
+  display: block;
+}
+.property-info { display: flex; justify-content: space-between; padding: 14px 4px; }
+.prop-name { font-weight: 700; font-size: 16px; }
+.prop-location { color: #888; font-size: 13px; margin-top: 2px; }
+.prop-price { font-weight: 700; font-size: 14px; text-align: right; }
+.prop-sqft { color: #888; font-size: 13px; margin-top: 2px; text-align: right; }
+
+/* FOOTER */
+footer {
+  background: #1a1a1a; color: #fff; padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-left { display: flex; align-items: center; gap: 10px; }
+.footer-left svg { width: 24px; height: 24px; }
+.footer-brand { font-weight: 700; font-size: 16px; }
+.footer-brand span { color: #E84C3D; font-weight: 600; font-size: 12px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: #999; text-decoration: none; font-size: 14px; }
+.footer-links a:hover { color: #fff; }
+.footer-copy { color: #666; font-size: 13px; width: 100%; text-align: center; margin-top: 12px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 12px 20px; }
+  .nav-center { display: none; }
+  .hero-text { padding: 0 20px 70px; }
+  .search-bar { flex-direction: column; border-radius: 20px; padding: 16px; gap: 10px; }
+  .search-input-wrap { width: 100%; }
+  .dropdown-toggle { width: 100%; justify-content: space-between; }
+  .properties-section { padding: 60px 20px 40px; }
+  .property-grid { grid-template-columns: 1fr; }
+  footer { padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-left">
+    <div class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none"><path d="M14 4L4 12h6l4-4 4 4h6L14 4z" fill="#fff"/><path d="M14 12L4 20h6l4-4 4 4h6L14 12z" fill="#fff"/></svg>
+    </div>
+    <div>
+      <span class="logo-text">MRP</span><br>
+      <span class="logo-accent">Capital Group</span>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" class="nav-link">Properties</a>
+    <a href="#" class="nav-link">Investors</a>
+    <a href="#" class="nav-link">News</a>
+    <a href="#" class="nav-link">About</a>
+  </div>
+  <button class="btn-contact">Contact</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">The anchor next to<br>the anchor</div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <input type="text" placeholder="Search Properties...">
+      <button class="search-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button>
+    </div>
+    <div class="dropdown">
+      <div class="dropdown-toggle" onclick="toggleDrop(this)">Location <svg viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="#888" stroke-width="1.5" fill="none"/></svg></div>
+      <ul class="dropdown-menu"><li>Missouri</li><li>Georgia</li><li>Arkansas</li><li>Mississippi</li><li>Texas</li><li>Louisiana</li></ul>
+    </div>
+    <div class="dropdown">
+      <div class="dropdown-toggle" onclick="toggleDrop(this)">Type <svg viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="#888" stroke-width="1.5" fill="none"/></svg></div>
+      <ul class="dropdown-menu"><li>Retail</li><li>Office</li><li>Mixed-Use</li><li>Industrial</li></ul>
+    </div>
+    <div class="dropdown">
+      <div class="dropdown-toggle" onclick="toggleDrop(this)">Square Foot <svg viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="#888" stroke-width="1.5" fill="none"/></svg></div>
+      <ul class="dropdown-menu"><li>Under 2,000</li><li>2,000–5,000</li><li>5,000–10,000</li><li>10,000+</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTIES -->
+<section class="properties-section">
+  <h2>Prime Properties</h2>
+  <div class="property-grid">
+    <div class="property-card">
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="Tifton Plaza">
+      <div class="property-info">
+        <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
+        <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
+      </div>
+    </div>
+    <div class="property-card">
+      <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80" alt="Tifton Plaza">
+      <div class="property-info">
+        <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
+        <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
+      </div>
+    </div>
+    <div class="property-card">
+      <img src="https://images.unsplash.com/photo-1604754742629-3e5728249d73?w=800&q=80" alt="Tifton Plaza">
+      <div class="property-info">
+        <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
+        <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <svg viewBox="0 0 28 28" fill="none"><path d="M14 4L4 12h6l4-4 4 4h6L14 4z" fill="#fff"/><path d="M14 12L4 20h6l4-4 4 4h6L14 12z" fill="#fff"/></svg>
+    <div class="footer-brand">MRP <span>Capital Group</span></div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Properties</a><a href="#">Investors</a><a href="#">News</a><a href="#">About</a><a href="#">Contact</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 MRP Capital Group. All rights reserved.</div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Dropdowns
+function toggleDrop(el) {
+  const menu = el.nextElementSibling;
+  const wasOpen = menu.classList.contains('open');
+  document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
+  if (!wasOpen) menu.classList.add('open');
+}
+
+document.querySelectorAll('.dropdown-menu li').forEach(li => {
+  li.addEventListener('click', () => {
+    const toggle = li.closest('.dropdown').querySelector('.dropdown-toggle');
+    const svg = toggle.querySelector('svg').outerHTML;
+    toggle.innerHTML = li.textContent + ' ' + svg;
+    li.closest('.dropdown-menu').classList.remove('open');
+  });
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.dropdown')) {
+    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
+  }
+});
+</script>
+</body>
+</html>
