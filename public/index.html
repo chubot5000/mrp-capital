@@ -44,7 +44,14 @@ img{display:block;max-width:100%}
 .search-bar{background:#fff;border-radius:16px;padding:20px 28px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 30px rgba(0,0,0,0.08)}
 .search-group{flex:1;display:flex;flex-direction:column;gap:4px}
 .search-group label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#5b5b5b}
-.search-group select{border:none;background:none;font-size:15px;font-family:'Inter',sans-serif;font-weight:500;color:#00063D;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;padding-right:16px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%235b5b5b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center}
+.search-group{position:relative}
+.dropdown-toggle{border:none;background:none;font-size:15px;font-family:'Inter',sans-serif;font-weight:500;color:#00063D;cursor:pointer;outline:none;display:flex;align-items:center;gap:8px;user-select:none}
+.dropdown-toggle svg{width:10px;height:6px;flex-shrink:0;transition:transform 0.2s}
+.dropdown-toggle.open svg{transform:rotate(180deg)}
+.dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;min-width:200px;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.12);padding:6px 0;z-index:100;list-style:none}
+.dropdown-menu.show{display:block}
+.dropdown-menu li{padding:10px 20px;font-size:14px;font-weight:500;color:#00063D;cursor:pointer;transition:background 0.15s,color 0.15s}
+.dropdown-menu li:hover{background:#F23030;color:#fff}
 .search-divider{width:1px;height:40px;background:rgba(0,0,0,0.08)}
 .btn-search{padding:14px 32px;background:#F23030;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap}
 .btn-search:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(242,48,48,0.3)}
@@ -196,33 +203,20 @@ img{display:block;max-width:100%}
     <div class="search-bar fade-up">
       <div class="search-group">
         <label>Location</label>
-        <select>
-          <option>All Locations</option>
-          <option>Southeast</option>
-          <option>Midwest</option>
-          <option>Southwest</option>
-          <option>Northeast</option>
-        </select>
+        <div class="dropdown-toggle" onclick="toggleDrop(this)">All Locations <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="#5b5b5b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <ul class="dropdown-menu"><li>All Locations</li><li>Southeast</li><li>Midwest</li><li>Southwest</li><li>Northeast</li></ul>
       </div>
       <div class="search-divider"></div>
       <div class="search-group">
         <label>Type</label>
-        <select>
-          <option>All Types</option>
-          <option>Retail</option>
-          <option>Mixed-Use</option>
-          <option>Office</option>
-        </select>
+        <div class="dropdown-toggle" onclick="toggleDrop(this)">All Types <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="#5b5b5b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <ul class="dropdown-menu"><li>All Types</li><li>Retail</li><li>Mixed-Use</li><li>Office</li></ul>
       </div>
       <div class="search-divider"></div>
       <div class="search-group">
         <label>Square Foot</label>
-        <select>
-          <option>Any Size</option>
-          <option>Under 50,000</option>
-          <option>50,000 - 100,000</option>
-          <option>100,000+</option>
-        </select>
+        <div class="dropdown-toggle" onclick="toggleDrop(this)">Any Size <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="#5b5b5b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <ul class="dropdown-menu"><li>Any Size</li><li>Under 50,000</li><li>50,000 – 100,000</li><li>100,000+</li></ul>
       </div>
       <button class="btn-search">Search</button>
     </div>
@@ -445,6 +439,29 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Custom dropdowns
+function toggleDrop(el) {
+  const menu = el.nextElementSibling;
+  const wasOpen = menu.classList.contains('show');
+  document.querySelectorAll('.dropdown-menu.show').forEach(m => { m.classList.remove('show'); m.previousElementSibling.classList.remove('open'); });
+  if (!wasOpen) { menu.classList.add('show'); el.classList.add('open'); }
+}
+document.querySelectorAll('.dropdown-menu li').forEach(li => {
+  li.addEventListener('click', function() {
+    const toggle = this.parentElement.previousElementSibling;
+    const svg = toggle.querySelector('svg').outerHTML;
+    toggle.innerHTML = this.textContent + ' ' + svg;
+    toggle.setAttribute('onclick', 'toggleDrop(this)');
+    this.parentElement.classList.remove('show');
+    toggle.classList.remove('open');
+  });
+});
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-group')) {
+    document.querySelectorAll('.dropdown-menu.show').forEach(m => { m.classList.remove('show'); m.previousElementSibling.classList.remove('open'); });
+  }
+});
 </script>
 </body>
 </html>
