@@ -13,7 +13,7 @@ body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; overf
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes navSlide { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes navFade { from { opacity: 0; } to { opacity: 1; } }
 .anim { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .anim.visible { opacity: 1; transform: translateY(0); }
 .anim-delay-1 { transition-delay: 0.1s; }
@@ -26,7 +26,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
   position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
   z-index: 100; width: calc(100% - 48px); max-width: 980px;
   transition: top 0.3s;
-  animation: navSlide 0.8s ease 0.3s both;
+  animation: navFade 0.8s ease 0.3s both;
 }
 nav {
   display: flex; align-items: center; justify-content: space-between;
@@ -137,14 +137,14 @@ nav {
 .properties-section h2 { font-size: 36px; margin-bottom: 36px; font-weight: 600; letter-spacing: -0.5px; }
 .property-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .property-card { border-radius: 12px; overflow: hidden; }
-.property-card { cursor: pointer; overflow: hidden; }
+.property-card { cursor: pointer; }
+.card-img-wrap { border-radius: 12px; overflow: hidden; }
 .property-card img {
   width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; display: block;
   transition: transform 0.45s ease, filter 0.45s ease;
 }
 .property-card:hover img { transform: scale(1.04); filter: brightness(1.05); }
-.property-card .property-info { transition: transform 0.3s ease; }
-.property-card:hover .property-info { transform: translateX(4px); }
+/* no text movement on hover */
 .property-info { display: flex; justify-content: space-between; padding: 14px 4px; }
 .prop-name { font-weight: 700; font-size: 16px; }
 .prop-location { color: #888; font-size: 13px; margin-top: 2px; }
@@ -232,21 +232,21 @@ footer {
   <h2 class="anim">Prime Properties</h2>
   <div class="property-grid">
     <div class="property-card anim anim-delay-1">
-      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="Tifton Plaza">
+      <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="Tifton Plaza"></div>
       <div class="property-info">
         <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
         <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
       </div>
     </div>
     <div class="property-card anim anim-delay-2">
-      <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80" alt="Tifton Plaza">
+      <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80" alt="Tifton Plaza"></div>
       <div class="property-info">
         <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
         <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
       </div>
     </div>
     <div class="property-card anim anim-delay-3">
-      <img src="https://images.unsplash.com/photo-1604754742629-3e5728249d73?w=800&q=80" alt="Tifton Plaza">
+      <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1604754742629-3e5728249d73?w=800&q=80" alt="Tifton Plaza"></div>
       <div class="property-info">
         <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
         <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
