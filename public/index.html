@@ -165,23 +165,64 @@ footer {
 .footer-links a:hover { color: #fff; }
 .footer-copy { color: #666; font-size: 13px; width: 100%; text-align: center; margin-top: 12px; }
 
-/* STATS BAR */
-.stats-bar {
-  background: #1a1a1a; padding: 60px 48px;
+/* COMBINED STATS + IMAGE BANNER */
+.stats-image-section {
+  padding: 0 24px; margin: 60px 0;
 }
-.stats-bar-inner {
-  max-width: 1000px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center;
+.stats-image-wrap {
+  position: relative; border-radius: 24px; overflow: hidden;
+  max-width: 1400px; margin: 0 auto;
 }
+.stats-image-wrap img {
+  width: 100%; height: 650px; object-fit: cover; display: block;
+}
+.stats-image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 48px 56px;
+}
+.stats-row {
+  display: flex; gap: 48px; justify-content: flex-start;
+}
+.stat-item { text-align: left; }
 .stat-item .stat-number {
   font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4vw, 52px);
-  font-weight: 700; color: #F23030; line-height: 1.1;
+  font-weight: 700; color: #fff; line-height: 1.1;
 }
-.stat-item .stat-label { color: #aaa; font-size: 14px; margin-top: 6px; }
-
-/* IMAGE BANNER */
-.img-banner {
-  width: 100%; height: 400px; object-fit: cover; display: block;
+.stat-item .stat-label { color: rgba(255,255,255,0.75); font-size: 14px; margin-top: 6px; }
+.stats-bottom {
+  max-width: 650px;
+}
+.stats-bottom .section-tag {
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 16px;
+}
+.stats-bottom h2 {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+.stats-bottom .more-link {
+  display: inline-flex; align-items: center; gap: 12px;
+  color: #fff; text-decoration: none; font-size: 13px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+}
+.stats-bottom .more-link .arrow-circle {
+  width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.5);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s, border-color 0.3s;
+}
+.stats-bottom .more-link:hover .arrow-circle {
+  background: #F23030; border-color: #F23030;
+}
+@media (max-width: 768px) {
+  .stats-image-section { padding: 0 12px; }
+  .stats-image-wrap img { height: 500px; }
+  .stats-image-overlay { padding: 32px 28px; }
+  .stats-row { flex-direction: column; gap: 20px; }
 }
 
 /* DISCOVER SECTION */
@@ -340,17 +381,27 @@ footer {
   </div>
 </section>
 
-<!-- STATS BAR -->
-<section class="stats-bar anim">
-  <div class="stats-bar-inner">
-    <div class="stat-item"><div class="stat-number">110+</div><div class="stat-label">Walmart Shadow Centers Acquired</div></div>
-    <div class="stat-item"><div class="stat-number">$420M+</div><div class="stat-label">Transaction Value</div></div>
-    <div class="stat-item"><div class="stat-number">3.5M+</div><div class="stat-label">Square Feet in Acquisitions</div></div>
+<!-- STATS + IMAGE COMBINED -->
+<section class="stats-image-section anim">
+  <div class="stats-image-wrap">
+    <img src="https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Rural America farmland and small town">
+    <div class="stats-image-overlay">
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-number">110+</div><div class="stat-label">Walmart Shadow Centers Acquired</div></div>
+        <div class="stat-item"><div class="stat-number">$420M+</div><div class="stat-label">Transaction Value</div></div>
+        <div class="stat-item"><div class="stat-number">3.5M+</div><div class="stat-label">Square Feet in Acquisitions</div></div>
+      </div>
+      <div class="stats-bottom">
+        <div class="section-tag">[Our Purpose]</div>
+        <h2>Building Resilient Communities Around America's Most Trusted Anchor.</h2>
+        <a href="#" class="more-link">
+          <span class="arrow-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          More About Us
+        </a>
+      </div>
+    </div>
   </div>
 </section>
-
-<!-- RURAL BANNER -->
-<img class="img-banner" src="https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Rural America farmland and small town">
 
 <!-- DISCOVER -->
 <section class="discover-section">
