@@ -5,55 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MRP Capital Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; color: #1a1a1a; }
-h1, h2, h3 { font-family: 'Libre Baskerville', Georgia, serif; }
+body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
 
 /* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 48px;
-  transition: background .3s, box-shadow .3s;
+.nav-wrapper {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 100; width: calc(100% - 48px); max-width: 980px;
+  transition: top 0.3s;
 }
-nav.scrolled { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
-nav.scrolled .nav-link, nav.scrolled .logo-text { color: #1a1a1a !important; }
-nav.scrolled .logo-accent { color: #E84C3D !important; }
-nav.scrolled .nav-logo svg path { fill: #1a1a1a; }
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.nav-wrapper.scrolled nav {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(0,0,0,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+.nav-wrapper.scrolled .nav-link { color: #1a1a1a; }
+.nav-wrapper.scrolled .logo-mrp { color: #1a1a1a; }
+.nav-wrapper.scrolled .nav-logo svg path { fill: #1a1a1a; }
 
-.nav-left { display: flex; align-items: center; gap: 8px; }
-.nav-logo svg { width: 28px; height: 28px; }
-.logo-text { color: #fff; font-weight: 700; font-size: 20px; transition: color .3s; }
-.logo-accent { color: #E84C3D; font-weight: 600; font-size: 14px; letter-spacing: .5px; transition: color .3s; }
+.nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-logo svg { width: 24px; height: 24px; }
+.logo-mrp { color: #fff; font-weight: 700; font-size: 18px; letter-spacing: 0.5px; transition: color 0.3s; font-family: 'Space Grotesk', sans-serif; }
+.logo-accent { color: #F23030; font-weight: 600; font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase; }
 
-.nav-center { display: flex; gap: 32px; }
-.nav-link { color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .3s; }
-.nav-link:hover { opacity: .8; }
+.nav-center { display: flex; align-items: center; gap: 28px; }
+.nav-link { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.3s; letter-spacing: 0.3px; }
+.nav-link:hover { opacity: 0.8; }
 
 .btn-contact {
-  background: #E84C3D; color: #fff; border: none; padding: 10px 24px;
-  border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer;
-  transition: opacity .2s;
+  background: #F23030; color: #fff; border: none; padding: 9px 22px;
+  border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: opacity 0.2s; font-family: 'Inter', sans-serif; letter-spacing: 0.3px;
 }
-.btn-contact:hover { opacity: .85; }
+.btn-contact:hover { opacity: 0.85; }
 
 /* HERO */
 .hero {
-  position: relative; height: 55vh; min-height: 400px;
-  background: url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1600&q=80') center/cover no-repeat;
+  position: relative; height: 85vh; min-height: 600px;
+  background: url('hero.png') center/cover no-repeat;
   display: flex; align-items: flex-end;
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top right, rgba(0,0,0,.65) 0%, rgba(0,0,0,.2) 50%, transparent 100%);
+  background: linear-gradient(to top right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.15) 100%);
 }
 .hero-text {
-  position: relative; z-index: 2; padding: 0 48px 80px;
-  font-family: 'Libre Baskerville', Georgia, serif;
-  font-size: clamp(36px, 4vw, 54px); color: #fff; line-height: 1.2;
-  text-shadow: 0 2px 16px rgba(0,0,0,.5);
+  position: relative; z-index: 2; padding: 0 48px 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(40px, 5vw, 64px); font-weight: 500; color: #fff; line-height: 1.15;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
 }
 
 /* SEARCH MODULE */
@@ -63,7 +77,7 @@ nav.scrolled .nav-logo svg path { fill: #1a1a1a; }
 }
 .search-bar {
   background: #fff; border-radius: 30px;
-  box-shadow: 0 4px 24px rgba(0,0,0,.1);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.1);
   display: flex; align-items: center; gap: 12px;
   padding: 10px 12px; width: 100%; max-width: 900px;
 }
@@ -76,7 +90,7 @@ nav.scrolled .nav-logo svg path { fill: #1a1a1a; }
   font-size: 14px; font-family: 'Inter', sans-serif; min-width: 0;
 }
 .search-btn {
-  width: 36px; height: 36px; border-radius: 50%; background: #E84C3D;
+  width: 36px; height: 36px; border-radius: 50%; background: #F23030;
   border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .search-btn svg { width: 16px; height: 16px; }
@@ -92,24 +106,23 @@ nav.scrolled .nav-logo svg path { fill: #1a1a1a; }
 .dropdown-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
 .dropdown-menu {
   display: none; position: absolute; top: calc(100% + 6px); left: 0;
-  background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   min-width: 180px; overflow: hidden; z-index: 50;
 }
 .dropdown-menu.open { display: block; }
 .dropdown-menu li {
   list-style: none; padding: 10px 18px; font-size: 14px; cursor: pointer;
-  transition: background .15s, color .15s;
+  transition: background 0.15s, color 0.15s;
 }
-.dropdown-menu li:hover { background: #E84C3D; color: #fff; }
+.dropdown-menu li:hover { background: #F23030; color: #fff; }
 
 /* PROPERTIES SECTION */
 .properties-section { padding: 80px 48px 60px; max-width: 1200px; margin: 0 auto; }
-.properties-section h2 { font-size: 32px; margin-bottom: 36px; }
+.properties-section h2 { font-size: 36px; margin-bottom: 36px; font-weight: 600; letter-spacing: -0.5px; }
 .property-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .property-card { border-radius: 12px; overflow: hidden; }
 .property-card img {
-  width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px;
-  display: block;
+  width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; display: block;
 }
 .property-info { display: flex; justify-content: space-between; padding: 14px 4px; }
 .prop-name { font-weight: 700; font-size: 16px; }
@@ -123,9 +136,9 @@ footer {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
 }
 .footer-left { display: flex; align-items: center; gap: 10px; }
-.footer-left svg { width: 24px; height: 24px; }
-.footer-brand { font-weight: 700; font-size: 16px; }
-.footer-brand span { color: #E84C3D; font-weight: 600; font-size: 12px; }
+.footer-left svg { width: 20px; height: 20px; }
+.footer-brand { font-weight: 700; font-size: 16px; font-family: 'Space Grotesk', sans-serif; }
+.footer-brand span { color: #F23030; font-weight: 600; font-size: 11px; letter-spacing: 0.5px; }
 .footer-links { display: flex; gap: 24px; }
 .footer-links a { color: #999; text-decoration: none; font-size: 14px; }
 .footer-links a:hover { color: #fff; }
@@ -133,9 +146,11 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  nav { padding: 12px 20px; }
+  .nav-wrapper { width: calc(100% - 24px); top: 10px; }
+  nav { padding: 8px 14px; }
   .nav-center { display: none; }
-  .hero-text { padding: 0 20px 70px; }
+  .hero { height: 75vh; }
+  .hero-text { padding: 0 20px 80px; }
   .search-bar { flex-direction: column; border-radius: 20px; padding: 16px; gap: 10px; }
   .search-input-wrap { width: 100%; }
   .dropdown-toggle { width: 100%; justify-content: space-between; }
@@ -148,16 +163,21 @@ footer {
 <body>
 
 <!-- NAV -->
-<nav id="navbar">
-  <div class="nav-left">
+<div class="nav-wrapper" id="navWrapper">
+<nav>
+  <a href="#" class="nav-left">
     <div class="nav-logo">
-      <svg viewBox="0 0 28 28" fill="none"><path d="M14 4L4 12h6l4-4 4 4h6L14 4z" fill="#fff"/><path d="M14 12L4 20h6l4-4 4 4h6L14 12z" fill="#fff"/></svg>
+      <svg viewBox="0 0 30 20" fill="none">
+        <path d="M20 17.2h-10v-2.5l10 0.9v1.6z" fill="#fff"/>
+        <path d="M20 14.3L10 12.6v-2.5L20 13v1.3z" fill="#fff"/>
+        <path d="M20 12.3L10 8v-2.5L20 10.7v1.6z" fill="#fff"/>
+      </svg>
     </div>
-    <div>
-      <span class="logo-text">MRP</span><br>
+    <div style="line-height:1.2">
+      <span class="logo-mrp">MRP</span><br>
       <span class="logo-accent">Capital Group</span>
     </div>
-  </div>
+  </a>
   <div class="nav-center">
     <a href="#" class="nav-link">Properties</a>
     <a href="#" class="nav-link">Investors</a>
@@ -166,6 +186,7 @@ footer {
   </div>
   <button class="btn-contact">Contact</button>
 </nav>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -226,7 +247,11 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="footer-left">
-    <svg viewBox="0 0 28 28" fill="none"><path d="M14 4L4 12h6l4-4 4 4h6L14 4z" fill="#fff"/><path d="M14 12L4 20h6l4-4 4 4h6L14 12z" fill="#fff"/></svg>
+    <svg viewBox="0 0 30 20" fill="none">
+      <path d="M20 17.2h-10v-2.5l10 0.9v1.6z" fill="#fff"/>
+      <path d="M20 14.3L10 12.6v-2.5L20 13v1.3z" fill="#fff"/>
+      <path d="M20 12.3L10 8v-2.5L20 10.7v1.6z" fill="#fff"/>
+    </svg>
     <div class="footer-brand">MRP <span>Capital Group</span></div>
   </div>
   <div class="footer-links">
@@ -237,9 +262,10 @@ footer {
 
 <script>
 // Nav scroll
+const navW = document.getElementById('navWrapper');
 window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
+  navW.classList.toggle('scrolled', window.scrollY > 80);
+}, { passive: true });
 
 // Dropdowns
 function toggleDrop(el) {
@@ -248,7 +274,6 @@ function toggleDrop(el) {
   document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
   if (!wasOpen) menu.classList.add('open');
 }
-
 document.querySelectorAll('.dropdown-menu li').forEach(li => {
   li.addEventListener('click', () => {
     const toggle = li.closest('.dropdown').querySelector('.dropdown-toggle');
@@ -257,7 +282,6 @@ document.querySelectorAll('.dropdown-menu li').forEach(li => {
     li.closest('.dropdown-menu').classList.remove('open');
   });
 });
-
 document.addEventListener('click', e => {
   if (!e.target.closest('.dropdown')) {
     document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
