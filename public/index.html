@@ -26,7 +26,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
   position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
   z-index: 100; width: calc(100% - 48px); max-width: 980px;
   transition: top 0.3s;
-  animation: navFade 0.8s ease 0.3s both;
+  /* no animation — preserves backdrop-filter */
 }
 nav {
   display: flex; align-items: center; justify-content: space-between;
