@@ -165,6 +165,72 @@ footer {
 .footer-links a:hover { color: #fff; }
 .footer-copy { color: #666; font-size: 13px; width: 100%; text-align: center; margin-top: 12px; }
 
+/* STATS BAR */
+.stats-bar {
+  background: #1a1a1a; padding: 60px 48px;
+}
+.stats-bar-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center;
+}
+.stat-item .stat-number {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700; color: #F23030; line-height: 1.1;
+}
+.stat-item .stat-label { color: #aaa; font-size: 14px; margin-top: 6px; }
+
+/* DISCOVER SECTION */
+.discover-section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+.discover-section h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 600; letter-spacing: -0.5px; text-align: center; margin-bottom: 56px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.2; }
+.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.feature-card {
+  border: 1px solid #e8e8e8; border-radius: 14px; padding: 36px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.feature-card:hover { border-color: #F23030; box-shadow: 0 8px 32px rgba(242,48,48,0.08); transform: translateY(-3px); }
+.feature-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.feature-card p { color: #555; font-size: 15px; line-height: 1.65; }
+
+/* MARKET SECTION */
+.market-section { background: #f8f8f8; padding: 100px 48px; }
+.market-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+.market-inner .market-text { font-size: 18px; line-height: 1.7; color: #333; max-width: 780px; margin: 0 auto 56px; }
+.market-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.market-stat .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4vw, 52px); font-weight: 700; color: #F23030; }
+.market-stat .stat-label { color: #555; font-size: 14px; margin-top: 6px; }
+
+/* STRATEGY SECTION */
+.strategy-section { padding: 100px 48px; max-width: 1000px; margin: 0 auto; }
+.strategy-section h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; }
+.strategy-section > p { font-size: 17px; line-height: 1.7; color: #444; margin-bottom: 40px; }
+.criteria-list { list-style: none; margin-bottom: 40px; }
+.criteria-list li { padding: 16px 0; border-bottom: 1px solid #eee; font-size: 16px; display: flex; align-items: center; gap: 12px; }
+.criteria-list li::before { content: '✓'; color: #F23030; font-weight: 700; font-size: 18px; }
+.strategy-cta { font-size: 16px; color: #555; }
+.strategy-cta a { color: #F23030; font-weight: 600; text-decoration: none; }
+.strategy-cta a:hover { text-decoration: underline; }
+
+/* NEWS SECTION */
+.news-section { padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
+.news-section h2 { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 36px; }
+.news-card {
+  border: 1px solid #e8e8e8; border-radius: 14px; padding: 40px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.news-card:hover { border-color: #F23030; box-shadow: 0 8px 32px rgba(242,48,48,0.08); }
+.news-card h3 { font-size: 22px; font-weight: 600; margin-bottom: 14px; line-height: 1.35; }
+.news-card p { color: #555; font-size: 15px; line-height: 1.65; }
+
+/* CTA SECTION */
+.cta-section { background: #1a1a1a; padding: 80px 48px; text-align: center; }
+.cta-section h2 { color: #fff; font-size: clamp(28px, 3vw, 40px); font-weight: 600; margin-bottom: 28px; }
+.cta-btn {
+  display: inline-block; background: #F23030; color: #fff; padding: 14px 40px;
+  border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none;
+  font-family: 'Inter', sans-serif; transition: opacity 0.2s, transform 0.2s;
+}
+.cta-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .nav-wrapper { width: calc(100% - 24px); top: 10px; }
@@ -177,6 +243,15 @@ footer {
   .dropdown-toggle { width: 100%; justify-content: space-between; }
   .properties-section { padding: 60px 20px 40px; }
   .property-grid { grid-template-columns: 1fr; }
+  .stats-bar-inner { grid-template-columns: 1fr; gap: 28px; }
+  .stats-bar { padding: 40px 20px; }
+  .discover-section { padding: 60px 20px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .market-section { padding: 60px 20px; }
+  .market-stats { grid-template-columns: 1fr; gap: 28px; }
+  .strategy-section { padding: 60px 20px; }
+  .news-section { padding: 60px 20px; }
+  .cta-section { padding: 60px 20px; }
   footer { padding: 28px 20px; }
 }
 </style>
@@ -253,6 +328,77 @@ footer {
       </div>
     </div>
   </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar anim">
+  <div class="stats-bar-inner">
+    <div class="stat-item"><div class="stat-number">110+</div><div class="stat-label">Walmart Shadow Centers Acquired</div></div>
+    <div class="stat-item"><div class="stat-number">$420M+</div><div class="stat-label">Transaction Value</div></div>
+    <div class="stat-item"><div class="stat-number">3.5M+</div><div class="stat-label">Square Feet in Acquisitions</div></div>
+  </div>
+</section>
+
+<!-- DISCOVER -->
+<section class="discover-section">
+  <h2 class="anim">Discovering an Overlooked Asset Class in Small Town America</h2>
+  <div class="feature-grid">
+    <div class="feature-card anim anim-delay-1">
+      <h3>Nationwide</h3>
+      <p>Small towns possess proven resilience and recession-proof fundamentals, without the volatility and complexity of larger markets.</p>
+    </div>
+    <div class="feature-card anim anim-delay-2">
+      <h3>Walmart-Anchored Shadow Centers</h3>
+      <p>Walmart sits at the center of our communities' daily lives and serves as a regional hub across rural America.</p>
+    </div>
+    <div class="feature-card anim anim-delay-1">
+      <h3>Small-Town Necessities</h3>
+      <p>The properties next to Walmart Shadow Centers are the modern Main Street of small towns — where America dines, shops, and fulfills its daily needs.</p>
+    </div>
+    <div class="feature-card anim anim-delay-2">
+      <h3>Accelerated Growth</h3>
+      <p>We've built a team specialized for managing and scaling this asset class. Our platform provides a superior experience for tenants, stable portfolio for investors, and one point of contact for brands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market-section">
+  <div class="market-inner">
+    <p class="market-text anim">There are 4,460 properties in 1,700 small towns that fit our investment model. Consolidation of this fragmented asset class is only being pursued by MRP. Our portfolio of 80+ properties represents less than 2% of the total market.</p>
+    <div class="market-stats">
+      <div class="market-stat anim anim-delay-1"><div class="stat-number">1,700</div><div class="stat-label">Small Towns that Match MRP's Market Criteria</div></div>
+      <div class="market-stat anim anim-delay-2"><div class="stat-number">4,460</div><div class="stat-label">Community-Centric Properties Ready for Investment</div></div>
+      <div class="market-stat anim anim-delay-3"><div class="stat-number">$18B</div><div class="stat-label">Value of the Addressable Market</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="strategy-section">
+  <h2 class="anim">Focused Strategy</h2>
+  <p class="anim">MRP is solely focused on acquiring and operating existing retail shopping centers anchored by high-performing Walmarts in small towns.</p>
+  <ul class="criteria-list anim">
+    <li>Anchored by a high-performing Walmart</li>
+    <li>Located in a small town</li>
+    <li>Possesses a value-add opportunity to increase occupancy or grow NOI</li>
+  </ul>
+  <p class="strategy-cta anim">Have a property that matches our criteria? <a href="mailto:aj@mrpstl.com">Contact AJ Anthon, Director of Investments</a></p>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <h2 class="anim">MRP News</h2>
+  <div class="news-card anim">
+    <h3>MRP Capital Group Acquires a $117 Million Portfolio of 27 Small Market Walmart Shadow Centers</h3>
+    <p>MRP Capital Group has completed the acquisition of a 27-property portfolio of Walmart shadow-anchored shopping centers across small-town America, further solidifying its position as the leading consolidator in this overlooked asset class.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="anim">Have a Question? Contact Us Here!</h2>
+  <a href="mailto:info@mrpstl.com" class="cta-btn anim anim-delay-1">Get in Touch</a>
 </section>
 
 <!-- FOOTER -->
