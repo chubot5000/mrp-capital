@@ -5,519 +5,449 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MRP Capital Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mona+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; }
-
-/* ANIMATIONS */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes navFade { from { opacity: 0; } to { opacity: 1; } }
-.anim { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.anim.visible { opacity: 1; transform: translateY(0); }
-.anim-delay-1 { transition-delay: 0.1s; }
-.anim-delay-2 { transition-delay: 0.2s; }
-.anim-delay-3 { transition-delay: 0.3s; }
-h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#f2f1e8;color:#000;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:'Mona Sans',sans-serif;font-weight:500;letter-spacing:-0.04em}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* NAV */
-.nav-wrapper {
-  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-  z-index: 100; width: calc(100% - 48px); max-width: 980px;
-  transition: top 0.3s;
-  /* no animation — preserves backdrop-filter */
-}
-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-.nav-wrapper.scrolled nav {
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-color: rgba(0,0,0,0.06);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-}
-.nav-wrapper.scrolled .nav-link { color: #1a1a1a; }
-
-.nav-left { display: flex; align-items: center; text-decoration: none; }
-.nav-logo-svg { height: 22px; width: auto; }
-.nav-wrapper.scrolled .nav-logo-svg path[fill="white"] { fill: #1a1a1a; }
-
-.nav-center { display: flex; align-items: center; gap: 28px; }
-.nav-link { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.3s; letter-spacing: 0.3px; }
-.nav-link { position: relative; }
-.nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1.5px; background: currentColor; transition: width 0.3s ease; }
-.nav-link:hover::after { width: 100%; }
-.nav-link:hover { opacity: 1; }
-
-.btn-contact {
-  background: #F23030; color: #fff; border: none; padding: 9px 22px;
-  border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
-  transition: opacity 0.2s; font-family: 'Inter', sans-serif; letter-spacing: 0.3px;
-}
-.btn-contact:hover { opacity: 0.85; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(242,48,48,0.3); }
-.btn-contact { transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; }
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:1000;width:calc(100% - 48px);max-width:900px}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-radius:100px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);transition:all 0.4s ease}
+.nav.scrolled .nav-inner{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.08);box-shadow:0 2px 20px rgba(0,0,0,0.06)}
+.nav-logo-svg{height:20px;width:auto}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:14px;font-weight:500;color:#fff;transition:opacity 0.3s}
+.nav.scrolled .nav-links a{color:#1a1a1a}
+.nav-links a:hover{opacity:0.7}
+.btn-contact{padding:8px 20px;border-radius:100px;background:#fff;color:#000;font-size:13px;font-weight:600;transition:all 0.3s}
+.nav.scrolled .btn-contact{background:#000;color:#fff}
+.nav-mobile-toggle{display:none;background:none;border:none;cursor:pointer}
+.nav-mobile-toggle span{display:block;width:22px;height:2px;background:#fff;margin:5px 0;transition:all 0.3s}
+.nav.scrolled .nav-mobile-toggle span{background:#1a1a1a}
 
 /* HERO */
-.hero {
-  position: relative; height: 85vh; min-height: 600px;
-  background: url('hero.png') center/cover no-repeat;
-  display: flex; align-items: flex-end;
-}
-.hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.15) 100%);
-}
-.hero-text {
-  position: relative; z-index: 2; padding: 0 48px 100px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(40px, 5vw, 64px); font-weight: 500; color: #fff; line-height: 1.15;
-  letter-spacing: -1px;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
-  animation: fadeUp 1s ease 0.5s both;
-}
+.hero{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('hero.png') center/cover no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(304deg,transparent 54%,rgba(0,0,0,0.03) 100%),linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.1) 50%,transparent 100%)}
+.hero-content{position:relative;z-index:2;padding:0 0 80px}
+.hero-content .container{display:flex;flex-direction:column;gap:12px}
+.hero-tagline{font-family:'Mona Sans',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:500;letter-spacing:-0.04em;color:#fff;line-height:1.1;max-width:600px}
 
-/* SEARCH MODULE */
-.search-wrap {
-  position: relative; z-index: 10; margin-top: -36px;
-  display: flex; justify-content: center; padding: 0 24px;
-}
-.search-bar {
-  background: #fff; border-radius: 30px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.1);
-  animation: fadeUp 0.8s ease 0.8s both;
-  display: flex; align-items: center; gap: 16px;
-  padding: 14px 16px; width: 100%; max-width: 1000px;
-}
-.search-input-wrap {
-  display: flex; align-items: center; flex: 1; min-width: 0;
-  background: #f5f5f5; border-radius: 28px; padding: 0 6px 0 20px; height: 50px;
-}
-.search-input-wrap input {
-  border: none; background: transparent; outline: none; flex: 1;
-  font-size: 14px; font-family: 'Inter', sans-serif; min-width: 0;
-}
-.search-btn {
-  width: 40px; height: 40px; border-radius: 50%; background: #F23030;
-  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.search-btn svg { width: 16px; height: 16px; }
+/* SEARCH */
+.search-section{position:relative;z-index:10;margin-top:-36px}
+.search-bar{background:#fff;border-radius:16px;padding:20px 28px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 30px rgba(0,0,0,0.08)}
+.search-group{flex:1;display:flex;flex-direction:column;gap:4px}
+.search-group label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#5b5b5b}
+.search-group select{border:none;background:none;font-size:15px;font-family:'Inter',sans-serif;font-weight:500;color:#000;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;padding-right:16px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%235b5b5b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center}
+.search-divider{width:1px;height:40px;background:rgba(0,0,0,0.08)}
+.btn-search{padding:14px 32px;background:#F23030;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap}
+.btn-search:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(242,48,48,0.3)}
 
-/* DROPDOWN */
-.dropdown { position: relative; }
-.dropdown-toggle {
-  display: flex; align-items: center; gap: 8px;
-  padding: 12px 20px; border-radius: 28px; border: 1px solid #ddd;
-  background: #fff; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif;
-  white-space: nowrap; user-select: none; color: #1a1a1a;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.dropdown-toggle:hover { border-color: #bbb; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.dropdown-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
-.dropdown-menu {
-  display: none; position: absolute; top: calc(100% + 6px); left: 0;
-  background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  min-width: 180px; overflow: hidden; z-index: 50;
-}
-.dropdown-menu.open { display: block; }
-.dropdown-menu li {
-  list-style: none; padding: 10px 18px; font-size: 14px; cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-.dropdown-menu li:hover { background: #F23030; color: #fff; }
+/* PROPERTIES */
+.section{padding:100px 0}
+.section-label{display:inline-block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#5b5b5b;margin-bottom:12px}
+.section-heading{font-size:clamp(28px,3.5vw,42px);line-height:1.15;margin-bottom:48px}
+.properties-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.property-card{background:#fffff2;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);transition:transform 0.3s}
+.property-card:hover{transform:translateY(-4px)}
+.property-card img{width:100%;height:240px;object-fit:cover}
+.property-card-body{padding:24px}
+.property-card-body h3{font-size:18px;margin-bottom:6px}
+.property-card-body .location{font-size:14px;color:#5b5b5b;margin-bottom:16px}
+.property-card-body .meta{display:flex;gap:16px;font-size:13px;color:#5b5b5b}
+.property-card-body .meta span{display:flex;align-items:center;gap:4px}
 
-/* PROPERTIES SECTION */
-.properties-section { padding: 80px 48px 60px; max-width: 1200px; margin: 0 auto; }
-.properties-section h2 { font-size: 36px; margin-bottom: 36px; font-weight: 600; letter-spacing: -0.5px; }
-.property-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-.property-card { border-radius: 12px; overflow: hidden; }
-.property-card { cursor: pointer; }
-.card-img-wrap { border-radius: 12px; overflow: hidden; }
-.property-card img {
-  width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; display: block;
-  transition: transform 0.45s ease, filter 0.45s ease;
-}
-.property-card:hover img { transform: scale(1.04); filter: brightness(1.05); }
-/* no text movement on hover */
-.property-info { display: flex; justify-content: space-between; padding: 14px 4px; }
-.prop-name { font-weight: 700; font-size: 16px; }
-.prop-location { color: #888; font-size: 13px; margin-top: 2px; }
-.prop-price { font-weight: 700; font-size: 14px; text-align: right; }
-.prop-sqft { color: #888; font-size: 13px; margin-top: 2px; text-align: right; }
+/* PURPOSE / STATS+IMAGE */
+.purpose-section{padding:100px 0}
+.purpose-block{position:relative;border-radius:16px;overflow:hidden;min-height:520px;display:flex;flex-direction:column;justify-content:space-between}
+.purpose-block img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.purpose-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.15) 50%,rgba(0,0,0,0.25) 100%)}
+.purpose-stats{position:relative;z-index:2;display:flex;gap:48px;padding:40px 48px}
+.purpose-stat{color:#fff}
+.purpose-stat .num{font-family:'Mona Sans',sans-serif;font-size:36px;font-weight:600;letter-spacing:-0.04em}
+.purpose-stat .desc{font-size:13px;opacity:0.8;margin-top:4px}
+.purpose-bottom{position:relative;z-index:2;padding:40px 48px}
+.purpose-bottom .section-label{color:rgba(255,255,255,0.7)}
+.purpose-bottom h2{color:#fff;font-size:clamp(24px,3vw,36px);margin-bottom:20px;max-width:500px}
+.purpose-arrow{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:#F23030;color:#fff;font-size:20px;transition:transform 0.3s}
+.purpose-arrow:hover{transform:scale(1.1)}
+
+/* DISCOVER */
+.discover-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.discover-card{background:#fffff2;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);display:flex;flex-direction:column}
+.discover-card img{width:100%;height:220px;object-fit:cover}
+.discover-card-body{padding:28px;flex:1;display:flex;flex-direction:column}
+.discover-card-body h3{font-size:20px;margin-bottom:10px}
+.discover-card-body p{font-size:14px;color:#5b5b5b;line-height:1.6}
+
+/* MARKET */
+.market-section{background:#000;color:#fff;padding:100px 0}
+.market-section .section-label{color:rgba(255,255,255,0.5)}
+.market-section .section-heading{color:#fff}
+.market-stats{display:flex;gap:64px;margin-bottom:40px;flex-wrap:wrap}
+.market-stat .num{font-family:'Mona Sans',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:600;letter-spacing:-0.04em;color:#F23030}
+.market-stat .desc{font-size:14px;color:rgba(255,255,255,0.6);margin-top:8px;max-width:200px}
+.market-text{font-size:17px;line-height:1.7;color:rgba(255,255,255,0.7);max-width:700px}
+
+/* STRATEGY */
+.strategy-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.strategy-list{list-style:none;display:flex;flex-direction:column;gap:20px}
+.strategy-list li{display:flex;gap:14px;font-size:16px;line-height:1.5;color:#1a1a1a}
+.strategy-list li::before{content:'✓';display:flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:#F23030;color:#fff;font-size:13px;font-weight:700}
+.strategy-img{border-radius:16px;width:100%;height:100%;object-fit:cover;min-height:400px}
+
+/* NEWS */
+.news-card{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:16px;overflow:hidden;background:#fffff2;border:1px solid rgba(0,0,0,0.06)}
+.news-card-img{background:#e0dfd6;min-height:300px;display:flex;align-items:center;justify-content:center;padding:48px;font-family:'Mona Sans',sans-serif;font-size:48px;font-weight:600;letter-spacing:-0.04em;color:#F23030;line-height:1.1}
+.news-card-body{padding:48px;display:flex;flex-direction:column;justify-content:center}
+.news-card-body .date{font-size:13px;color:#5b5b5b;margin-bottom:12px}
+.news-card-body h3{font-size:24px;margin-bottom:16px;line-height:1.3}
+.news-card-body p{font-size:15px;color:#5b5b5b;line-height:1.7;margin-bottom:24px}
+.btn-read{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#F23030}
+.btn-read:hover{gap:12px}
+
+/* CTA */
+.cta-section{background:#111;padding:100px 0;text-align:center}
+.cta-section h2{color:#fff;font-size:clamp(28px,4vw,44px);margin-bottom:32px}
+.btn-cta{display:inline-block;padding:16px 40px;background:#F23030;color:#fff;border-radius:100px;font-size:16px;font-weight:600;transition:transform 0.2s,box-shadow 0.2s}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(242,48,48,0.35)}
 
 /* FOOTER */
-footer {
-  background: #1a1a1a; color: #fff; padding: 40px 48px;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-}
-.footer-left { display: flex; align-items: center; gap: 10px; }
-.footer-left svg { width: 20px; height: 20px; }
-.footer-brand { font-weight: 700; font-size: 16px; font-family: 'Space Grotesk', sans-serif; }
-.footer-brand span { color: #F23030; font-weight: 600; font-size: 11px; letter-spacing: 0.5px; }
-.footer-links { display: flex; gap: 24px; }
-.footer-links a { color: #999; text-decoration: none; font-size: 14px; }
-.footer-links a:hover { color: #fff; }
-.footer-copy { color: #666; font-size: 13px; width: 100%; text-align: center; margin-top: 12px; }
+.footer{background:#0a0a0a;color:#fff;padding:64px 0 32px}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;flex-wrap:wrap;gap:32px}
+.footer-brand{max-width:300px}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,0.5);margin-top:16px;line-height:1.6}
+.footer-links{display:flex;gap:64px}
+.footer-col h4{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;color:rgba(255,255,255,0.4)}
+.footer-col a{display:block;font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:10px;transition:color 0.2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;font-size:13px;color:rgba(255,255,255,0.3);text-align:center}
 
-/* COMBINED STATS + IMAGE BANNER */
-.stats-image-section {
-  padding: 0 24px; margin: 60px 0;
-}
-.stats-image-wrap {
-  position: relative; border-radius: 24px; overflow: hidden;
-  max-width: 1400px; margin: 0 auto;
-}
-.stats-image-wrap img {
-  width: 100%; height: 650px; object-fit: cover; display: block;
-}
-.stats-image-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: 48px 56px;
-}
-.stats-row {
-  display: flex; gap: 48px; justify-content: flex-start;
-}
-.stat-item { text-align: left; }
-.stat-item .stat-number {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4vw, 52px);
-  font-weight: 700; color: #fff; line-height: 1.1;
-}
-.stat-item .stat-label { color: rgba(255,255,255,0.75); font-size: 14px; margin-top: 6px; }
-.stats-bottom {
-  max-width: 650px;
-}
-.stats-bottom .section-tag {
-  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.7); font-family: 'Space Grotesk', sans-serif;
-  margin-bottom: 16px;
-}
-.stats-bottom h2 {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 28px;
-  letter-spacing: -0.5px;
-}
-.stats-bottom .more-link {
-  display: inline-flex; align-items: center; gap: 12px;
-  color: #fff; text-decoration: none; font-size: 13px;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 500;
-}
-.stats-bottom .more-link .arrow-circle {
-  width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.5);
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.3s, border-color 0.3s;
-}
-.stats-bottom .more-link:hover .arrow-circle {
-  background: #F23030; border-color: #F23030;
-}
-@media (max-width: 768px) {
-  .stats-image-section { padding: 0 12px; }
-  .stats-image-wrap img { height: 500px; }
-  .stats-image-overlay { padding: 32px 28px; }
-  .stats-row { flex-direction: column; gap: 20px; }
-}
-
-/* DISCOVER SECTION */
-.discover-section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
-.discover-section h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 600; letter-spacing: -0.5px; text-align: center; margin-bottom: 56px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.2; }
-.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.feature-card {
-  border: 1px solid #e8e8e8; border-radius: 14px; padding: 36px;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-}
-.feature-card:hover { border-color: #F23030; box-shadow: 0 8px 32px rgba(242,48,48,0.08); transform: translateY(-3px); }
-.feature-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
-.feature-card p { color: #555; font-size: 15px; line-height: 1.65; }
-.feature-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 16px; }
-
-/* MARKET SECTION */
-.market-section { background: #f8f8f8; padding: 100px 48px; }
-.market-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-.market-inner .market-text { font-size: 18px; line-height: 1.7; color: #333; max-width: 780px; margin: 0 auto 56px; }
-.market-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-.market-stat .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4vw, 52px); font-weight: 700; color: #F23030; }
-.market-stat .stat-label { color: #555; font-size: 14px; margin-top: 6px; }
-
-/* STRATEGY SECTION */
-.strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-.strategy-img { width: 100%; height: 380px; object-fit: cover; border-radius: 14px; }
-.strategy-section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
-.strategy-section h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; }
-.strategy-section > p { font-size: 17px; line-height: 1.7; color: #444; margin-bottom: 40px; }
-.criteria-list { list-style: none; margin-bottom: 40px; }
-.criteria-list li { padding: 16px 0; border-bottom: 1px solid #eee; font-size: 16px; display: flex; align-items: center; gap: 12px; }
-.criteria-list li::before { content: '✓'; color: #F23030; font-weight: 700; font-size: 18px; }
-.strategy-cta { font-size: 16px; color: #555; }
-.strategy-cta a { color: #F23030; font-weight: 600; text-decoration: none; }
-.strategy-cta a:hover { text-decoration: underline; }
-
-/* NEWS SECTION */
-.news-section { padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
-.news-section h2 { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 36px; }
-.news-card {
-  border: 1px solid #e8e8e8; border-radius: 14px; padding: 40px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.news-card:hover { border-color: #F23030; box-shadow: 0 8px 32px rgba(242,48,48,0.08); }
-.news-card h3 { font-size: 22px; font-weight: 600; margin-bottom: 14px; line-height: 1.35; }
-.news-card p { color: #555; font-size: 15px; line-height: 1.65; }
-
-/* CTA SECTION */
-.cta-section { background: #1a1a1a; padding: 80px 48px; text-align: center; }
-.cta-section h2 { color: #fff; font-size: clamp(28px, 3vw, 40px); font-weight: 600; margin-bottom: 28px; }
-.cta-btn {
-  display: inline-block; background: #F23030; color: #fff; padding: 14px 40px;
-  border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none;
-  font-family: 'Inter', sans-serif; transition: opacity 0.2s, transform 0.2s;
-}
-.cta-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-  .nav-wrapper { width: calc(100% - 24px); top: 10px; }
-  nav { padding: 8px 14px; }
-  .nav-center { display: none; }
-  .hero { height: 75vh; }
-  .hero-text { padding: 0 20px 80px; }
-  .search-bar { flex-direction: column; border-radius: 20px; padding: 16px; gap: 10px; }
-  .search-input-wrap { width: 100%; }
-  .dropdown-toggle { width: 100%; justify-content: space-between; }
-  .properties-section { padding: 60px 20px 40px; }
-  .property-grid { grid-template-columns: 1fr; }
-  .stats-bar-inner { grid-template-columns: 1fr; gap: 28px; }
-  .stats-bar { padding: 40px 20px; }
-  .discover-section { padding: 60px 20px; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .market-section { padding: 60px 20px; }
-  .market-stats { grid-template-columns: 1fr; gap: 28px; }
-  .strategy-section { padding: 60px 20px; }
-  .strategy-grid { grid-template-columns: 1fr; }
-  .strategy-img { height: 240px; }
-  .news-section { padding: 60px 20px; }
-  .cta-section { padding: 60px 20px; }
-  footer { padding: 28px 20px; }
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-mobile-toggle{display:block}
+  .nav.mobile-open .nav-links{display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+  .nav.mobile-open .nav-links a{color:#1a1a1a}
+  .nav.mobile-open .btn-contact{background:#000;color:#fff}
+  .search-bar{flex-direction:column;gap:12px;padding:20px}
+  .search-divider{width:100%;height:1px}
+  .btn-search{width:100%}
+  .properties-grid{grid-template-columns:1fr}
+  .discover-grid{grid-template-columns:1fr}
+  .strategy-grid{grid-template-columns:1fr}
+  .news-card{grid-template-columns:1fr}
+  .news-card-img{min-height:200px;font-size:32px}
+  .purpose-stats{flex-direction:column;gap:24px;padding:24px}
+  .purpose-bottom{padding:24px}
+  .market-stats{gap:32px}
+  .footer-links{gap:32px}
+  .footer-inner{flex-direction:column}
+  .hero-tagline{font-size:32px}
+  .hero-content{padding-bottom:50px}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<div class="nav-wrapper" id="navWrapper">
-<nav>
-  <a href="#" class="nav-left">
-    <svg class="nav-logo-svg" viewBox="0 0 194 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.9144 19.2168H0V14.2539L19.9144 16.0483V19.2168Z" fill="white"/><path d="M19.9144 15.4202L0 12.0879V7.125L19.9144 12.2517V15.4202Z" fill="white"/><path d="M19.9144 11.6276L0 4.96246V0L19.9144 8.45908V11.6276Z" fill="white"/><path d="M30.9082 17.8579V3.42831H34.0488L37.8896 14.3353L41.7091 3.42831H44.8709V17.8579H42.4518V6.97203L38.5262 17.8579H37.253L33.3273 7.01447V17.8579H30.9082Z" fill="white"/><path d="M46.7096 17.8579V3.42831H52.439C55.3037 3.42831 57.1286 5.0198 57.1286 7.48131C57.1286 9.24257 56.1949 10.5582 54.6034 11.1524L57.6591 17.8579H55.1976L52.4602 11.7465H49.1287V17.8579H46.7096ZM49.1287 9.8155H52.4177C53.8395 9.8155 54.7732 8.96671 54.7732 7.60863C54.7732 6.27178 53.8395 5.4442 52.3329 5.4442H49.1287V9.8155Z" fill="white"/><path d="M58.8431 17.8579V3.42831H64.4451C67.4796 3.42831 69.453 5.1259 69.453 7.77839C69.453 10.3884 67.4796 12.086 64.4451 12.086H61.2621V17.8579H58.8431ZM61.2621 10.1338H64.339C66.0366 10.1338 67.0552 9.26379 67.0764 7.77839C67.0764 6.293 66.0791 5.4442 64.339 5.4442H61.2621V10.1338Z" fill="white"/><path d="M81.4072 18.0064C77.0783 18.0064 73.9802 14.9295 73.9802 10.6219C73.9802 6.35665 77.0783 3.27977 81.4072 3.27977C85.0994 3.27977 87.7307 5.38054 88.3248 8.79695H85.9058C85.3328 6.69617 83.6989 5.50786 81.3435 5.50786C78.4576 5.50786 76.378 7.65107 76.378 10.6219C76.378 13.6139 78.4576 15.7783 81.3435 15.7783C83.7838 15.7783 85.545 14.4627 85.927 12.1709H88.3461C87.9217 15.6722 85.3541 18.0064 81.4072 18.0064Z" fill="#F23030"/><path d="M92.789 17.964C90.6246 17.964 89.1392 16.5634 89.1392 14.5475C89.1392 12.5104 90.5821 11.1099 92.7041 11.1099C93.8712 11.1099 94.8261 11.5555 95.399 12.3407V10.9826C95.399 9.79428 94.8049 9.11525 93.7439 9.11525C92.789 9.11525 92.11 9.58208 91.8765 10.3036H89.6484C90.1365 8.47865 91.6856 7.39643 93.8288 7.39643C96.3539 7.39643 97.7332 8.79695 97.7332 11.2372V17.8579H95.5476V16.5422C95.0383 17.4335 94.041 17.964 92.789 17.964ZM91.4521 14.5051C91.4521 15.6298 92.2585 16.3937 93.4044 16.3937C94.2956 16.3937 95.0171 15.9905 95.399 15.2054V13.9534C95.0171 13.147 94.2744 12.6802 93.3407 12.6802C92.2161 12.6802 91.4521 13.4441 91.4521 14.5051Z" fill="#F23030"/><path d="M99.4807 21.6774V7.54497H101.645V9.56086C102.43 8.20279 103.746 7.39643 105.486 7.39643C108.287 7.39643 110.303 9.58208 110.303 12.7014C110.303 15.8207 108.308 18.0064 105.486 18.0064C103.852 18.0064 102.579 17.2849 101.815 16.0542V21.6774H99.4807ZM101.815 12.6802C101.815 14.6324 103.131 16.0329 104.955 16.0329C106.802 16.0329 108.032 14.6324 108.032 12.6802C108.032 10.728 106.759 9.36988 104.955 9.36988C103.131 9.36988 101.815 10.728 101.815 12.6802Z" fill="#F23030"/><path d="M111.594 17.8579V7.54497H113.907V17.8579H111.594ZM111.297 4.7015C111.297 3.89514 111.912 3.3222 112.74 3.3222C113.567 3.3222 114.183 3.89514 114.183 4.7015C114.183 5.50786 113.567 6.10202 112.74 6.10202C111.912 6.10202 111.297 5.50786 111.297 4.7015Z" fill="#F23030"/><path d="M117.087 17.8579V9.4972H115.114V7.54497H117.087V4.31954H119.443V7.54497H121.565V9.4972H119.443V17.8579H117.087Z" fill="#F23030"/><path d="M125.532 17.964C123.368 17.964 121.883 16.5634 121.883 14.5475C121.883 12.5104 123.325 11.1099 125.447 11.1099C126.615 11.1099 127.569 11.5555 128.142 12.3407V10.9826C128.142 9.79428 127.548 9.11525 126.487 9.11525C125.532 9.11525 124.853 9.58208 124.62 10.3036H122.392C122.88 8.47865 124.429 7.39643 126.572 7.39643C129.097 7.39643 130.477 8.79695 130.477 11.2372V17.8579H128.291V16.5422C127.782 17.4335 126.784 17.964 125.532 17.964ZM124.195 14.5051C124.195 15.6298 125.002 16.3937 126.148 16.3937C127.039 16.3937 127.76 15.9905 128.142 15.2054V13.9534C127.76 13.147 127.018 12.6802 126.084 12.6802C124.959 12.6802 124.195 13.4441 124.195 14.5051Z" fill="#F23030"/><path d="M132.246 17.8579V3.00391H134.58V17.8579H132.246Z" fill="#F23030"/><path d="M146.954 18.0064C142.731 18.0064 139.633 14.9295 139.633 10.6219C139.633 6.35665 142.731 3.27977 147.06 3.27977C150.455 3.27977 152.959 5.16834 153.786 8.18157H151.304C150.603 6.54763 149.054 5.50786 146.996 5.50786C144.131 5.50786 142.03 7.65107 142.03 10.6431C142.03 13.6563 144.089 15.7995 146.996 15.7995C149.606 15.7995 151.219 14.3778 151.558 12.1285H146.763V10.2187H153.977V10.9826C153.977 15.0568 151.304 18.0064 146.954 18.0064Z" fill="#F23030"/><path d="M155.238 17.8579V7.54497H157.402V9.32745C157.869 8.11791 158.824 7.46009 160.288 7.39643V9.68818C158.442 9.62452 157.572 10.5582 157.572 12.5529V17.8579H155.238Z" fill="#F23030"/><path d="M166.099 18.0064C162.916 18.0064 160.645 15.8207 160.645 12.7014C160.645 9.58208 162.916 7.39643 166.099 7.39643C169.282 7.39643 171.552 9.58208 171.552 12.7014C171.552 15.8207 169.282 18.0064 166.099 18.0064ZM162.873 12.6802C162.873 14.6112 164.231 15.9905 166.099 15.9905C167.987 15.9905 169.324 14.6112 169.324 12.6802C169.324 10.7704 167.987 9.41232 166.099 9.41232C164.231 9.41232 162.873 10.7704 162.873 12.6802Z" fill="#F23030"/><path d="M177.055 18.0064C174.424 18.0064 172.726 16.3937 172.726 13.9322V7.54497H175.061V13.8048C175.061 15.1841 175.803 15.9905 177.055 15.9905C178.307 15.9905 179.05 15.1841 179.05 13.8048V7.54497H181.363V13.9322C181.363 16.3937 179.665 18.0064 177.055 18.0064Z" fill="#F23030"/><path d="M183.101 21.6774V7.54497H185.265V9.56086C186.05 8.20279 187.366 7.39643 189.106 7.39643C191.907 7.39643 193.923 9.58208 193.923 12.7014C193.923 15.8207 191.928 18.0064 189.106 18.0064C187.472 18.0064 186.199 17.2849 185.435 16.0542V21.6774H183.101ZM185.435 12.6802C185.435 14.6324 186.75 16.0329 188.575 16.0329C190.421 16.0329 191.652 14.6324 191.652 12.6802C191.652 10.728 190.379 9.36988 188.575 9.36988C186.75 9.36988 185.435 10.728 185.435 12.6802Z" fill="#F23030"/></svg>
-  </a>
-  <div class="nav-center">
-    <a href="#" class="nav-link">Properties</a>
-    <a href="#" class="nav-link">Investors</a>
-    <a href="#" class="nav-link">News</a>
-    <a href="#" class="nav-link">About</a>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg class="nav-logo-svg" viewBox="0 0 194 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.9144 19.2168H0V14.2539L19.9144 16.0483V19.2168Z" fill="white"/><path d="M19.9144 15.4202L0 12.0879V7.125L19.9144 12.2517V15.4202Z" fill="white"/><path d="M19.9144 11.6276L0 4.96246V0L19.9144 8.45908V11.6276Z" fill="white"/><path d="M30.9082 17.8579V3.42831H34.0488L37.8896 14.3353L41.7091 3.42831H44.8709V17.8579H42.4518V6.97203L38.5262 17.8579H37.253L33.3273 7.01447V17.8579H30.9082Z" fill="white"/><path d="M46.7096 17.8579V3.42831H52.439C55.3037 3.42831 57.1286 5.0198 57.1286 7.48131C57.1286 9.24257 56.1949 10.5582 54.6034 11.1524L57.6591 17.8579H55.1976L52.4602 11.7465H49.1287V17.8579H46.7096ZM49.1287 9.8155H52.4177C53.8395 9.8155 54.7732 8.96671 54.7732 7.60863C54.7732 6.27178 53.8395 5.4442 52.3329 5.4442H49.1287V9.8155Z" fill="white"/><path d="M58.8431 17.8579V3.42831H64.4451C67.4796 3.42831 69.453 5.1259 69.453 7.77839C69.453 10.3884 67.4796 12.086 64.4451 12.086H61.2621V17.8579H58.8431ZM61.2621 10.1338H64.339C66.0366 10.1338 67.0552 9.26379 67.0764 7.77839C67.0764 6.293 66.0791 5.4442 64.339 5.4442H61.2621V10.1338Z" fill="white"/><path d="M81.4072 18.0064C77.0783 18.0064 73.9802 14.9295 73.9802 10.6219C73.9802 6.35665 77.0783 3.27977 81.4072 3.27977C85.0994 3.27977 87.7307 5.38054 88.3248 8.79695H85.9058C85.3328 6.69617 83.6989 5.50786 81.3435 5.50786C78.4576 5.50786 76.378 7.65107 76.378 10.6219C76.378 13.6139 78.4576 15.7783 81.3435 15.7783C83.7838 15.7783 85.545 14.3778 85.927 12.1709H88.3461C87.9217 15.6722 85.3541 18.0064 81.4072 18.0064Z" fill="#F23030"/><path d="M92.789 17.964C90.6246 17.964 89.1392 16.5634 89.1392 14.5475C89.1392 12.5104 90.5821 11.1099 92.7041 11.1099C93.8712 11.1099 94.8261 11.5555 95.399 12.3407V10.9826C95.399 9.79428 94.8049 9.11525 93.7439 9.11525C92.789 9.11525 92.11 9.58208 91.8765 10.3036H89.6484C90.1365 8.47865 91.6856 7.39643 93.8288 7.39643C96.3539 7.39643 97.7332 8.79695 97.7332 11.2372V17.8579H95.5476V16.5422C95.0383 17.4335 94.041 17.964 92.789 17.964ZM91.4521 14.5051C91.4521 15.6298 92.2585 16.3937 93.4044 16.3937C94.2956 16.3937 95.0171 15.9905 95.399 15.2054V13.9534C95.0171 13.147 94.2744 12.6802 93.3407 12.6802C92.2161 12.6802 91.4521 13.4441 91.4521 14.5051Z" fill="#F23030"/><path d="M99.4807 21.6774V7.54497H101.645V9.56086C102.43 8.20279 103.746 7.39643 105.486 7.39643C108.287 7.39643 110.303 9.58208 110.303 12.7014C110.303 15.8207 108.308 18.0064 105.486 18.0064C103.852 18.0064 102.579 17.2849 101.815 16.0542V21.6774H99.4807ZM101.815 12.6802C101.815 14.6324 103.131 16.0329 104.955 16.0329C106.802 16.0329 108.032 14.6324 108.032 12.6802C108.032 10.728 106.759 9.36988 104.955 9.36988C103.131 9.36988 101.815 10.728 101.815 12.6802Z" fill="#F23030"/><path d="M111.594 17.8579V7.54497H113.907V17.8579H111.594ZM111.297 4.7015C111.297 3.89514 111.912 3.3222 112.74 3.3222C113.567 3.3222 114.183 3.89514 114.183 4.7015C114.183 5.50786 113.567 6.10202 112.74 6.10202C111.912 6.10202 111.297 5.50786 111.297 4.7015Z" fill="#F23030"/><path d="M117.087 17.8579V9.4972H115.114V7.54497H117.087V4.31954H119.443V7.54497H121.565V9.4972H119.443V17.8579H117.087Z" fill="#F23030"/><path d="M125.532 17.964C123.368 17.964 121.883 16.5634 121.883 14.5475C121.883 12.5104 123.325 11.1099 125.447 11.1099C126.615 11.1099 127.569 11.5555 128.142 12.3407V10.9826C128.142 9.79428 127.548 9.11525 126.487 9.11525C125.532 9.11525 124.853 9.58208 124.62 10.3036H122.392C122.88 8.47865 124.429 7.39643 126.572 7.39643C129.097 7.39643 130.477 8.79695 130.477 11.2372V17.8579H128.291V16.5422C127.782 17.4335 126.784 17.964 125.532 17.964ZM124.195 14.5051C124.195 15.6298 125.002 16.3937 126.148 16.3937C127.039 16.3937 127.76 15.9905 128.142 15.2054V13.9534C127.76 13.147 127.018 12.6802 126.084 12.6802C124.959 12.6802 124.195 13.4441 124.195 14.5051Z" fill="#F23030"/><path d="M132.246 17.8579V3.00391H134.58V17.8579H132.246Z" fill="#F23030"/><path d="M146.954 18.0064C142.731 18.0064 139.633 14.9295 139.633 10.6219C139.633 6.35665 142.731 3.27977 147.06 3.27977C150.455 3.27977 152.959 5.16834 153.786 8.18157H151.304C150.603 6.54763 149.054 5.50786 146.996 5.50786C144.131 5.50786 142.03 7.65107 142.03 10.6431C142.03 13.6563 144.089 15.7995 146.996 15.7995C149.606 15.7995 151.219 14.3778 151.558 12.1285H146.763V10.2187H153.977V10.9826C153.977 15.0568 151.304 18.0064 146.954 18.0064Z" fill="#F23030"/><path d="M155.238 17.8579V7.54497H157.402V9.32745C157.869 8.11791 158.824 7.46009 160.288 7.39643V9.68818C158.442 9.62452 157.572 10.5582 157.572 12.5529V17.8579H155.238Z" fill="#F23030"/><path d="M166.099 18.0064C162.916 18.0064 160.645 15.8207 160.645 12.7014C160.645 9.58208 162.916 7.39643 166.099 7.39643C169.282 7.39643 171.552 9.58208 171.552 12.7014C171.552 15.8207 169.282 18.0064 166.099 18.0064ZM162.873 12.6802C162.873 14.6112 164.231 15.9905 166.099 15.9905C167.987 15.9905 169.324 14.6112 169.324 12.6802C169.324 10.7704 167.987 9.41232 166.099 9.41232C164.231 9.41232 162.873 10.7704 162.873 12.6802Z" fill="#F23030"/><path d="M177.055 18.0064C174.424 18.0064 172.726 16.3937 172.726 13.9322V7.54497H175.061V13.8048C175.061 15.1841 175.803 15.9905 177.055 15.9905C178.307 15.9905 179.05 15.1841 179.05 13.8048V7.54497H181.363V13.9322C181.363 16.3937 179.665 18.0064 177.055 18.0064Z" fill="#F23030"/><path d="M183.101 21.6774V7.54497H185.265V9.56086C186.05 8.20279 187.366 7.39643 189.106 7.39643C191.907 7.39643 193.923 9.58208 193.923 12.7014C193.923 15.8207 191.928 18.0064 189.106 18.0064C187.472 18.0064 186.199 17.2849 185.435 16.0542V21.6774H183.101ZM185.435 12.6802C185.435 14.6324 186.75 16.0329 188.575 16.0329C190.421 16.0329 191.652 14.6324 191.652 12.6802C191.652 10.728 190.379 9.36988 188.575 9.36988C186.75 9.36988 185.435 10.728 185.435 12.6802Z" fill="#F23030"/></svg>
+    </a>
+    <div class="nav-links">
+      <a href="#properties">Properties</a>
+      <a href="#investors">Investors</a>
+      <a href="#news">News</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="btn-contact">Contact</a>
+    </div>
+    <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <button class="btn-contact">Contact</button>
 </nav>
-</div>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-text">The anchor next to<br>the anchor</div>
+  <div class="hero-content">
+    <div class="container">
+      <h1 class="hero-tagline">The anchor next to the anchor</h1>
+    </div>
+  </div>
 </section>
 
 <!-- SEARCH -->
-<div class="search-wrap">
-  <div class="search-bar">
-    <div class="search-input-wrap">
-      <input type="text" placeholder="Search Properties...">
-      <button class="search-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button>
-    </div>
-    <div class="dropdown">
-      <div class="dropdown-toggle" onclick="toggleDrop(this)">Location <svg viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="#888" stroke-width="1.5" fill="none"/></svg></div>
-      <ul class="dropdown-menu"><li>Missouri</li><li>Georgia</li><li>Arkansas</li><li>Mississippi</li><li>Texas</li><li>Louisiana</li></ul>
-    </div>
-    <div class="dropdown">
-      <div class="dropdown-toggle" onclick="toggleDrop(this)">Type <svg viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="#888" stroke-width="1.5" fill="none"/></svg></div>
-      <ul class="dropdown-menu"><li>Retail</li><li>Office</li><li>Mixed-Use</li><li>Industrial</li></ul>
-    </div>
-    <div class="dropdown">
-      <div class="dropdown-toggle" onclick="toggleDrop(this)">Square Foot <svg viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="#888" stroke-width="1.5" fill="none"/></svg></div>
-      <ul class="dropdown-menu"><li>Under 2,000</li><li>2,000–5,000</li><li>5,000–10,000</li><li>10,000+</li></ul>
+<div class="search-section">
+  <div class="container">
+    <div class="search-bar fade-up">
+      <div class="search-group">
+        <label>Location</label>
+        <select>
+          <option>All Locations</option>
+          <option>Southeast</option>
+          <option>Midwest</option>
+          <option>Southwest</option>
+          <option>Northeast</option>
+        </select>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-group">
+        <label>Type</label>
+        <select>
+          <option>All Types</option>
+          <option>Retail</option>
+          <option>Mixed-Use</option>
+          <option>Office</option>
+        </select>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-group">
+        <label>Square Foot</label>
+        <select>
+          <option>Any Size</option>
+          <option>Under 50,000</option>
+          <option>50,000 - 100,000</option>
+          <option>100,000+</option>
+        </select>
+      </div>
+      <button class="btn-search">Search</button>
     </div>
   </div>
 </div>
 
 <!-- PROPERTIES -->
-<section class="properties-section">
-  <h2 class="anim">Prime Properties</h2>
-  <div class="property-grid">
-    <div class="property-card anim anim-delay-1">
-      <div class="card-img-wrap"><img src="https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tifton Plaza"></div>
-      <div class="property-info">
-        <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
-        <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
+<section class="section" id="properties">
+  <div class="container">
+    <span class="section-label fade-up">Featured Properties</span>
+    <h2 class="section-heading fade-up">Anchor-Tenanted Retail<br>Across America</h2>
+    <div class="properties-grid">
+      <div class="property-card fade-up">
+        <img src="https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Property" loading="lazy">
+        <div class="property-card-body">
+          <h3>Riverside Commons</h3>
+          <p class="location">Jackson, TN</p>
+          <div class="meta"><span>68,000 SF</span><span>Retail</span><span>96% Leased</span></div>
+        </div>
       </div>
-    </div>
-    <div class="property-card anim anim-delay-2">
-      <div class="card-img-wrap"><img src="https://images.pexels.com/photos/1546168/pexels-photo-1546168.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tifton Plaza"></div>
-      <div class="property-info">
-        <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
-        <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
+      <div class="property-card fade-up">
+        <img src="https://images.pexels.com/photos/1546168/pexels-photo-1546168.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Property" loading="lazy">
+        <div class="property-card-body">
+          <h3>Magnolia Plaza</h3>
+          <p class="location">Hattiesburg, MS</p>
+          <div class="meta"><span>112,000 SF</span><span>Mixed-Use</span><span>94% Leased</span></div>
+        </div>
       </div>
-    </div>
-    <div class="property-card anim anim-delay-3">
-      <div class="card-img-wrap"><img src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tifton Plaza"></div>
-      <div class="property-info">
-        <div><div class="prop-name">Tifton Plaza</div><div class="prop-location">Georgia</div></div>
-        <div><div class="prop-price">Contact for Price</div><div class="prop-sqft">3420 SqFt</div></div>
+      <div class="property-card fade-up">
+        <img src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Property" loading="lazy">
+        <div class="property-card-body">
+          <h3>Heritage Crossing</h3>
+          <p class="location">Cookeville, TN</p>
+          <div class="meta"><span>85,000 SF</span><span>Retail</span><span>98% Leased</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS + IMAGE COMBINED -->
-<section class="stats-image-section anim">
-  <div class="stats-image-wrap">
-    <img src="https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Rural America farmland and small town">
-    <div class="stats-image-overlay">
-      <div class="stats-row">
-        <div class="stat-item"><div class="stat-number">110+</div><div class="stat-label">Walmart Shadow Centers Acquired</div></div>
-        <div class="stat-item"><div class="stat-number">$420M+</div><div class="stat-label">Transaction Value</div></div>
-        <div class="stat-item"><div class="stat-number">3.5M+</div><div class="stat-label">Square Feet in Acquisitions</div></div>
+<!-- PURPOSE / STATS + IMAGE -->
+<section class="purpose-section" id="investors">
+  <div class="container">
+    <div class="purpose-block fade-up">
+      <img src="https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Our Purpose" loading="lazy">
+      <div class="purpose-overlay"></div>
+      <div class="purpose-stats">
+        <div class="purpose-stat"><div class="num">$450M+</div><div class="desc">Assets Under Management</div></div>
+        <div class="purpose-stat"><div class="num">85+</div><div class="desc">Properties Acquired</div></div>
+        <div class="purpose-stat"><div class="num">12M+</div><div class="desc">Square Feet Managed</div></div>
       </div>
-      <div class="stats-bottom">
-        <div class="section-tag">[Our Purpose]</div>
-        <h2>Building Resilient Communities Around America's Most Trusted Anchor.</h2>
-        <a href="#" class="more-link">
-          <span class="arrow-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          More About Us
-        </a>
+      <div class="purpose-bottom">
+        <span class="section-label">[Our Purpose]</span>
+        <h2>Investing in the backbone of small-town American retail</h2>
+        <a href="#" class="purpose-arrow">→</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- DISCOVER -->
-<section class="discover-section">
-  <h2 class="anim">Discovering an Overlooked Asset Class in Small Town America</h2>
-  <div class="feature-grid">
-    <div class="feature-card anim anim-delay-1">
-      <img src="https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Rural American landscape">
-      <h3>Nationwide</h3>
-      <p>Small towns possess proven resilience and recession-proof fundamentals, without the volatility and complexity of larger markets.</p>
-    </div>
-    <div class="feature-card anim anim-delay-2">
-      <img src="https://images.pexels.com/photos/2292953/pexels-photo-2292953.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Walmart shopping center parking lot">
-      <h3>Walmart-Anchored Shadow Centers</h3>
-      <p>Walmart sits at the center of our communities' daily lives and serves as a regional hub across rural America.</p>
-    </div>
-    <div class="feature-card anim anim-delay-1">
-      <img src="https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Small town main street">
-      <h3>Small-Town Necessities</h3>
-      <p>The properties next to Walmart Shadow Centers are the modern Main Street of small towns — where America dines, shops, and fulfills its daily needs.</p>
-    </div>
-    <div class="feature-card anim anim-delay-2">
-      <img src="https://images.pexels.com/photos/7578899/pexels-photo-7578899.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Commercial property keys and growth">
-      <h3>Accelerated Growth</h3>
-      <p>We've built a team specialized for managing and scaling this asset class. Our platform provides a superior experience for tenants, stable portfolio for investors, and one point of contact for brands.</p>
+<section class="section" id="about">
+  <div class="container">
+    <span class="section-label fade-up">What We Do</span>
+    <h2 class="section-heading fade-up">Discovering an Overlooked Asset Class<br>in Small Town America</h2>
+    <div class="discover-grid">
+      <div class="discover-card fade-up">
+        <img src="https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Community anchors" loading="lazy">
+        <div class="discover-card-body">
+          <h3>Community Anchors</h3>
+          <p>We acquire grocery and necessity-anchored retail centers that serve as the commercial heart of their communities.</p>
+        </div>
+      </div>
+      <div class="discover-card fade-up">
+        <img src="https://images.pexels.com/photos/2292953/pexels-photo-2292953.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Value creation" loading="lazy">
+        <div class="discover-card-body">
+          <h3>Value Creation</h3>
+          <p>Through active management and strategic capital improvements, we unlock unrealized value in overlooked markets.</p>
+        </div>
+      </div>
+      <div class="discover-card fade-up">
+        <img src="https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Resilient income" loading="lazy">
+        <div class="discover-card-body">
+          <h3>Resilient Income</h3>
+          <p>Necessity-based tenants provide recession-resistant cash flows with long-term lease structures and built-in escalators.</p>
+        </div>
+      </div>
+      <div class="discover-card fade-up">
+        <img src="https://images.pexels.com/photos/7578899/pexels-photo-7578899.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Local expertise" loading="lazy">
+        <div class="discover-card-body">
+          <h3>Local Expertise</h3>
+          <p>Deep relationships with regional brokers and tenants give us access to off-market deals invisible to institutional buyers.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- MARKET -->
 <section class="market-section">
-  <div class="market-inner">
-    <p class="market-text anim">There are 4,460 properties in 1,700 small towns that fit our investment model. Consolidation of this fragmented asset class is only being pursued by MRP. Our portfolio of 80+ properties represents less than 2% of the total market.</p>
-    <div class="market-stats">
-      <div class="market-stat anim anim-delay-1"><div class="stat-number">1,700</div><div class="stat-label">Small Towns that Match MRP's Market Criteria</div></div>
-      <div class="market-stat anim anim-delay-2"><div class="stat-number">4,460</div><div class="stat-label">Community-Centric Properties Ready for Investment</div></div>
-      <div class="market-stat anim anim-delay-3"><div class="stat-number">$18B</div><div class="stat-label">Value of the Addressable Market</div></div>
+  <div class="container">
+    <span class="section-label fade-up">The Market</span>
+    <h2 class="section-heading fade-up">An Enormous, Fragmented Opportunity</h2>
+    <div class="market-stats fade-up">
+      <div class="market-stat"><div class="num">1,700</div><div class="desc">Micropolitan statistical areas across the U.S.</div></div>
+      <div class="market-stat"><div class="num">4,460</div><div class="desc">Shopping centers in small-town markets</div></div>
+      <div class="market-stat"><div class="num">$18B</div><div class="desc">Estimated total addressable market</div></div>
     </div>
+    <p class="market-text fade-up">While institutional capital chases gateway markets, a vast landscape of necessity-anchored retail remains overlooked. These communities need their shopping centers — and the centers need experienced operators. MRP Capital Group fills that gap.</p>
   </div>
 </section>
 
 <!-- STRATEGY -->
-<section class="strategy-section">
-  <div class="strategy-grid">
-    <div>
-      <h2 class="anim">Focused Strategy</h2>
-      <p class="anim">MRP is solely focused on acquiring and operating existing retail shopping centers anchored by high-performing Walmarts in small towns.</p>
-      <ul class="criteria-list anim">
-        <li>Anchored by a high-performing Walmart</li>
-        <li>Located in a small town</li>
-        <li>Possesses a value-add opportunity to increase occupancy or grow NOI</li>
+<section class="section">
+  <div class="container">
+    <span class="section-label fade-up">Our Approach</span>
+    <h2 class="section-heading fade-up">A Proven Strategy for<br>Consistent Returns</h2>
+    <div class="strategy-grid fade-up">
+      <ul class="strategy-list">
+        <li>Acquire anchor-tenanted retail at significant discounts to replacement cost</li>
+        <li>Target properties with in-place cash flow and near-term value-add upside</li>
+        <li>Implement institutional-quality management in non-institutional markets</li>
+        <li>Build long-term tenant relationships through responsive local operations</li>
+        <li>Generate returns through rent growth, occupancy gains, and cap rate compression</li>
+        <li>Maintain disciplined underwriting with conservative leverage targets</li>
       </ul>
-      <p class="strategy-cta anim">Have a property that matches our criteria? <a href="mailto:aj@mrpstl.com">Contact AJ Anthon, Director of Investments</a></p>
+      <img class="strategy-img" src="https://images.pexels.com/photos/417351/pexels-photo-417351.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Strategy" loading="lazy">
     </div>
-    <img class="strategy-img anim" src="https://images.pexels.com/photos/417351/pexels-photo-417351.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aerial view of small town strip mall and parking lot">
   </div>
 </section>
 
 <!-- NEWS -->
-<section class="news-section">
-  <h2 class="anim">MRP News</h2>
-  <div class="news-card anim">
-    <h3>MRP Capital Group Acquires a $117 Million Portfolio of 27 Small Market Walmart Shadow Centers</h3>
-    <p>MRP Capital Group has completed the acquisition of a 27-property portfolio of Walmart shadow-anchored shopping centers across small-town America, further solidifying its position as the leading consolidator in this overlooked asset class.</p>
+<section class="section" id="news">
+  <div class="container">
+    <span class="section-label fade-up">Latest News</span>
+    <h2 class="section-heading fade-up">What's Happening</h2>
+    <div class="news-card fade-up">
+      <div class="news-card-img">$117M</div>
+      <div class="news-card-body">
+        <p class="date">March 2025</p>
+        <h3>MRP Capital Group Closes $117M Acquisition of 12-Property Retail Portfolio</h3>
+        <p>The portfolio spans six states across the Southeast and Midwest, comprising over 1.2 million square feet of grocery-anchored retail space with a weighted average occupancy of 95%.</p>
+        <a href="#" class="btn-read">Read More →</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
-  <h2 class="anim">Have a Question? Contact Us Here!</h2>
-  <a href="mailto:info@mrpstl.com" class="cta-btn anim anim-delay-1">Get in Touch</a>
+<section class="cta-section" id="contact">
+  <div class="container">
+    <h2 class="fade-up">Have a Question?<br>Contact Us Here!</h2>
+    <a href="mailto:info@mrpcapitalgroup.com" class="btn-cta fade-up">Get in Touch</a>
+  </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    <svg viewBox="0 0 194 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:18px;width:auto"><path d="M19.9144 19.2168H0V14.2539L19.9144 16.0483V19.2168Z" fill="white"/><path d="M19.9144 15.4202L0 12.0879V7.125L19.9144 12.2517V15.4202Z" fill="white"/><path d="M19.9144 11.6276L0 4.96246V0L19.9144 8.45908V11.6276Z" fill="white"/><path d="M30.9082 17.8579V3.42831H34.0488L37.8896 14.3353L41.7091 3.42831H44.8709V17.8579H42.4518V6.97203L38.5262 17.8579H37.253L33.3273 7.01447V17.8579H30.9082Z" fill="white"/><path d="M46.7096 17.8579V3.42831H52.439C55.3037 3.42831 57.1286 5.0198 57.1286 7.48131C57.1286 9.24257 56.1949 10.5582 54.6034 11.1524L57.6591 17.8579H55.1976L52.4602 11.7465H49.1287V17.8579H46.7096ZM49.1287 9.8155H52.4177C53.8395 9.8155 54.7732 8.96671 54.7732 7.60863C54.7732 6.27178 53.8395 5.4442 52.3329 5.4442H49.1287V9.8155Z" fill="white"/><path d="M58.8431 17.8579V3.42831H64.4451C67.4796 3.42831 69.453 5.1259 69.453 7.77839C69.453 10.3884 67.4796 12.086 64.4451 12.086H61.2621V17.8579H58.8431ZM61.2621 10.1338H64.339C66.0366 10.1338 67.0552 9.26379 67.0764 7.77839C67.0764 6.293 66.0791 5.4442 64.339 5.4442H61.2621V10.1338Z" fill="white"/><path d="M81.4072 18.0064C77.0783 18.0064 73.9802 14.9295 73.9802 10.6219C73.9802 6.35665 77.0783 3.27977 81.4072 3.27977C85.0994 3.27977 87.7307 5.38054 88.3248 8.79695H85.9058C85.3328 6.69617 83.6989 5.50786 81.3435 5.50786C78.4576 5.50786 76.378 7.65107 76.378 10.6219C76.378 13.6139 78.4576 15.7783 81.3435 15.7783C83.7838 15.7783 85.545 14.4627 85.927 12.1709H88.3461C87.9217 15.6722 85.3541 18.0064 81.4072 18.0064Z" fill="#F23030"/><path d="M92.789 17.964C90.6246 17.964 89.1392 16.5634 89.1392 14.5475C89.1392 12.5104 90.5821 11.1099 92.7041 11.1099C93.8712 11.1099 94.8261 11.5555 95.399 12.3407V10.9826C95.399 9.79428 94.8049 9.11525 93.7439 9.11525C92.789 9.11525 92.11 9.58208 91.8765 10.3036H89.6484C90.1365 8.47865 91.6856 7.39643 93.8288 7.39643C96.3539 7.39643 97.7332 8.79695 97.7332 11.2372V17.8579H95.5476V16.5422C95.0383 17.4335 94.041 17.964 92.789 17.964ZM91.4521 14.5051C91.4521 15.6298 92.2585 16.3937 93.4044 16.3937C94.2956 16.3937 95.0171 15.9905 95.399 15.2054V13.9534C95.0171 13.147 94.2744 12.6802 93.3407 12.6802C92.2161 12.6802 91.4521 13.4441 91.4521 14.5051Z" fill="#F23030"/><path d="M99.4807 21.6774V7.54497H101.645V9.56086C102.43 8.20279 103.746 7.39643 105.486 7.39643C108.287 7.39643 110.303 9.58208 110.303 12.7014C110.303 15.8207 108.308 18.0064 105.486 18.0064C103.852 18.0064 102.579 17.2849 101.815 16.0542V21.6774H99.4807ZM101.815 12.6802C101.815 14.6324 103.131 16.0329 104.955 16.0329C106.802 16.0329 108.032 14.6324 108.032 12.6802C108.032 10.728 106.759 9.36988 104.955 9.36988C103.131 9.36988 101.815 10.728 101.815 12.6802Z" fill="#F23030"/><path d="M111.594 17.8579V7.54497H113.907V17.8579H111.594ZM111.297 4.7015C111.297 3.89514 111.912 3.3222 112.74 3.3222C113.567 3.3222 114.183 3.89514 114.183 4.7015C114.183 5.50786 113.567 6.10202 112.74 6.10202C111.912 6.10202 111.297 5.50786 111.297 4.7015Z" fill="#F23030"/><path d="M117.087 17.8579V9.4972H115.114V7.54497H117.087V4.31954H119.443V7.54497H121.565V9.4972H119.443V17.8579H117.087Z" fill="#F23030"/><path d="M125.532 17.964C123.368 17.964 121.883 16.5634 121.883 14.5475C121.883 12.5104 123.325 11.1099 125.447 11.1099C126.615 11.1099 127.569 11.5555 128.142 12.3407V10.9826C128.142 9.79428 127.548 9.11525 126.487 9.11525C125.532 9.11525 124.853 9.58208 124.62 10.3036H122.392C122.88 8.47865 124.429 7.39643 126.572 7.39643C129.097 7.39643 130.477 8.79695 130.477 11.2372V17.8579H128.291V16.5422C127.782 17.4335 126.784 17.964 125.532 17.964ZM124.195 14.5051C124.195 15.6298 125.002 16.3937 126.148 16.3937C127.039 16.3937 127.76 15.9905 128.142 15.2054V13.9534C127.76 13.147 127.018 12.6802 126.084 12.6802C124.959 12.6802 124.195 13.4441 124.195 14.5051Z" fill="#F23030"/><path d="M132.246 17.8579V3.00391H134.58V17.8579H132.246Z" fill="#F23030"/><path d="M146.954 18.0064C142.731 18.0064 139.633 14.9295 139.633 10.6219C139.633 6.35665 142.731 3.27977 147.06 3.27977C150.455 3.27977 152.959 5.16834 153.786 8.18157H151.304C150.603 6.54763 149.054 5.50786 146.996 5.50786C144.131 5.50786 142.03 7.65107 142.03 10.6431C142.03 13.6563 144.089 15.7995 146.996 15.7995C149.606 15.7995 151.219 14.3778 151.558 12.1285H146.763V10.2187H153.977V10.9826C153.977 15.0568 151.304 18.0064 146.954 18.0064Z" fill="#F23030"/><path d="M155.238 17.8579V7.54497H157.402V9.32745C157.869 8.11791 158.824 7.46009 160.288 7.39643V9.68818C158.442 9.62452 157.572 10.5582 157.572 12.5529V17.8579H155.238Z" fill="#F23030"/><path d="M166.099 18.0064C162.916 18.0064 160.645 15.8207 160.645 12.7014C160.645 9.58208 162.916 7.39643 166.099 7.39643C169.282 7.39643 171.552 9.58208 171.552 12.7014C171.552 15.8207 169.282 18.0064 166.099 18.0064ZM162.873 12.6802C162.873 14.6112 164.231 15.9905 166.099 15.9905C167.987 15.9905 169.324 14.6112 169.324 12.6802C169.324 10.7704 167.987 9.41232 166.099 9.41232C164.231 9.41232 162.873 10.7704 162.873 12.6802Z" fill="#F23030"/><path d="M177.055 18.0064C174.424 18.0064 172.726 16.3937 172.726 13.9322V7.54497H175.061V13.8048C175.061 15.1841 175.803 15.9905 177.055 15.9905C178.307 15.9905 179.05 15.1841 179.05 13.8048V7.54497H181.363V13.9322C181.363 16.3937 179.665 18.0064 177.055 18.0064Z" fill="#F23030"/><path d="M183.101 21.6774V7.54497H185.265V9.56086C186.05 8.20279 187.366 7.39643 189.106 7.39643C191.907 7.39643 193.923 9.58208 193.923 12.7014C193.923 15.8207 191.928 18.0064 189.106 18.0064C187.472 18.0064 186.199 17.2849 185.435 16.0542V21.6774H183.101ZM185.435 12.6802C185.435 14.6324 186.75 16.0329 188.575 16.0329C190.421 16.0329 191.652 14.6324 191.652 12.6802C191.652 10.728 190.379 9.36988 188.575 9.36988C186.75 9.36988 185.435 10.728 185.435 12.6802Z" fill="#F23030"/></svg>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg viewBox="0 0 194 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:20px;width:auto"><path d="M19.9144 19.2168H0V14.2539L19.9144 16.0483V19.2168Z" fill="white"/><path d="M19.9144 15.4202L0 12.0879V7.125L19.9144 12.2517V15.4202Z" fill="white"/><path d="M19.9144 11.6276L0 4.96246V0L19.9144 8.45908V11.6276Z" fill="white"/><path d="M30.9082 17.8579V3.42831H34.0488L37.8896 14.3353L41.7091 3.42831H44.8709V17.8579H42.4518V6.97203L38.5262 17.8579H37.253L33.3273 7.01447V17.8579H30.9082Z" fill="white"/><path d="M46.7096 17.8579V3.42831H52.439C55.3037 3.42831 57.1286 5.0198 57.1286 7.48131C57.1286 9.24257 56.1949 10.5582 54.6034 11.1524L57.6591 17.8579H55.1976L52.4602 11.7465H49.1287V17.8579H46.7096ZM49.1287 9.8155H52.4177C53.8395 9.8155 54.7732 8.96671 54.7732 7.60863C54.7732 6.27178 53.8395 5.4442 52.3329 5.4442H49.1287V9.8155Z" fill="white"/><path d="M58.8431 17.8579V3.42831H64.4451C67.4796 3.42831 69.453 5.1259 69.453 7.77839C69.453 10.3884 67.4796 12.086 64.4451 12.086H61.2621V17.8579H58.8431ZM61.2621 10.1338H64.339C66.0366 10.1338 67.0552 9.26379 67.0764 7.77839C67.0764 6.293 66.0791 5.4442 64.339 5.4442H61.2621V10.1338Z" fill="white"/><path d="M81.4072 18.0064C77.0783 18.0064 73.9802 14.9295 73.9802 10.6219C73.9802 6.35665 77.0783 3.27977 81.4072 3.27977C85.0994 3.27977 87.7307 5.38054 88.3248 8.79695H85.9058C85.3328 6.69617 83.6989 5.50786 81.3435 5.50786C78.4576 5.50786 76.378 7.65107 76.378 10.6219C76.378 13.6139 78.4576 15.7783 81.3435 15.7783C83.7838 15.7783 85.545 14.3778 85.927 12.1709H88.3461C87.9217 15.6722 85.3541 18.0064 81.4072 18.0064Z" fill="#F23030"/><path d="M92.789 17.964C90.6246 17.964 89.1392 16.5634 89.1392 14.5475C89.1392 12.5104 90.5821 11.1099 92.7041 11.1099C93.8712 11.1099 94.8261 11.5555 95.399 12.3407V10.9826C95.399 9.79428 94.8049 9.11525 93.7439 9.11525C92.789 9.11525 92.11 9.58208 91.8765 10.3036H89.6484C90.1365 8.47865 91.6856 7.39643 93.8288 7.39643C96.3539 7.39643 97.7332 8.79695 97.7332 11.2372V17.8579H95.5476V16.5422C95.0383 17.4335 94.041 17.964 92.789 17.964ZM91.4521 14.5051C91.4521 15.6298 92.2585 16.3937 93.4044 16.3937C94.2956 16.3937 95.0171 15.9905 95.399 15.2054V13.9534C95.0171 13.147 94.2744 12.6802 93.3407 12.6802C92.2161 12.6802 91.4521 13.4441 91.4521 14.5051Z" fill="#F23030"/><path d="M99.4807 21.6774V7.54497H101.645V9.56086C102.43 8.20279 103.746 7.39643 105.486 7.39643C108.287 7.39643 110.303 9.58208 110.303 12.7014C110.303 15.8207 108.308 18.0064 105.486 18.0064C103.852 18.0064 102.579 17.2849 101.815 16.0542V21.6774H99.4807ZM101.815 12.6802C101.815 14.6324 103.131 16.0329 104.955 16.0329C106.802 16.0329 108.032 14.6324 108.032 12.6802C108.032 10.728 106.759 9.36988 104.955 9.36988C103.131 9.36988 101.815 10.728 101.815 12.6802Z" fill="#F23030"/><path d="M111.594 17.8579V7.54497H113.907V17.8579H111.594ZM111.297 4.7015C111.297 3.89514 111.912 3.3222 112.74 3.3222C113.567 3.3222 114.183 3.89514 114.183 4.7015C114.183 5.50786 113.567 6.10202 112.74 6.10202C111.912 6.10202 111.297 5.50786 111.297 4.7015Z" fill="#F23030"/><path d="M117.087 17.8579V9.4972H115.114V7.54497H117.087V4.31954H119.443V7.54497H121.565V9.4972H119.443V17.8579H117.087Z" fill="#F23030"/><path d="M125.532 17.964C123.368 17.964 121.883 16.5634 121.883 14.5475C121.883 12.5104 123.325 11.1099 125.447 11.1099C126.615 11.1099 127.569 11.5555 128.142 12.3407V10.9826C128.142 9.79428 127.548 9.11525 126.487 9.11525C125.532 9.11525 124.853 9.58208 124.62 10.3036H122.392C122.88 8.47865 124.429 7.39643 126.572 7.39643C129.097 7.39643 130.477 8.79695 130.477 11.2372V17.8579H128.291V16.5422C127.782 17.4335 126.784 17.964 125.532 17.964ZM124.195 14.5051C124.195 15.6298 125.002 16.3937 126.148 16.3937C127.039 16.3937 127.76 15.9905 128.142 15.2054V13.9534C127.76 13.147 127.018 12.6802 126.084 12.6802C124.959 12.6802 124.195 13.4441 124.195 14.5051Z" fill="#F23030"/><path d="M132.246 17.8579V3.00391H134.58V17.8579H132.246Z" fill="#F23030"/><path d="M146.954 18.0064C142.731 18.0064 139.633 14.9295 139.633 10.6219C139.633 6.35665 142.731 3.27977 147.06 3.27977C150.455 3.27977 152.959 5.16834 153.786 8.18157H151.304C150.603 6.54763 149.054 5.50786 146.996 5.50786C144.131 5.50786 142.03 7.65107 142.03 10.6431C142.03 13.6563 144.089 15.7995 146.996 15.7995C149.606 15.7995 151.219 14.3778 151.558 12.1285H146.763V10.2187H153.977V10.9826C153.977 15.0568 151.304 18.0064 146.954 18.0064Z" fill="#F23030"/><path d="M155.238 17.8579V7.54497H157.402V9.32745C157.869 8.11791 158.824 7.46009 160.288 7.39643V9.68818C158.442 9.62452 157.572 10.5582 157.572 12.5529V17.8579H155.238Z" fill="#F23030"/><path d="M166.099 18.0064C162.916 18.0064 160.645 15.8207 160.645 12.7014C160.645 9.58208 162.916 7.39643 166.099 7.39643C169.282 7.39643 171.552 9.58208 171.552 12.7014C171.552 15.8207 169.282 18.0064 166.099 18.0064ZM162.873 12.6802C162.873 14.6112 164.231 15.9905 166.099 15.9905C167.987 15.9905 169.324 14.6112 169.324 12.6802C169.324 10.7704 167.987 9.41232 166.099 9.41232C164.231 9.41232 162.873 10.7704 162.873 12.6802Z" fill="#F23030"/><path d="M177.055 18.0064C174.424 18.0064 172.726 16.3937 172.726 13.9322V7.54497H175.061V13.8048C175.061 15.1841 175.803 15.9905 177.055 15.9905C178.307 15.9905 179.05 15.1841 179.05 13.8048V7.54497H181.363V13.9322C181.363 16.3937 179.665 18.0064 177.055 18.0064Z" fill="#F23030"/><path d="M183.101 21.6774V7.54497H185.265V9.56086C186.05 8.20279 187.366 7.39643 189.106 7.39643C191.907 7.39643 193.923 9.58208 193.923 12.7014C193.923 15.8207 191.928 18.0064 189.106 18.0064C187.472 18.0064 186.199 17.2849 185.435 16.0542V21.6774H183.101ZM185.435 12.6802C185.435 14.6324 186.75 16.0329 188.575 16.0329C190.421 16.0329 191.652 14.6324 191.652 12.6802C191.652 10.728 190.379 9.36988 188.575 9.36988C186.75 9.36988 185.435 10.728 185.435 12.6802Z" fill="#F23030"/></svg>
+        <p>Investing in anchor-tenanted retail across small-town America.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Team</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Invest</h4>
+          <a href="#">Properties</a>
+          <a href="#">Strategy</a>
+          <a href="#">Performance</a>
+          <a href="#">Investors</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">News</a>
+          <a href="#">Research</a>
+          <a href="#">FAQ</a>
+          <a href="#">Legal</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 MRP Capital Group. All rights reserved.
+    </div>
   </div>
-  <div class="footer-links">
-    <a href="#">Properties</a><a href="#">Investors</a><a href="#">News</a><a href="#">About</a><a href="#">Contact</a>
-  </div>
-  <div class="footer-copy">&copy; 2026 MRP Capital Group. All rights reserved.</div>
 </footer>
 
 <script>
-// Scroll animations
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.anim').forEach(el => obs.observe(el));
-
 // Nav scroll
-const navW = document.getElementById('navWrapper');
-window.addEventListener('scroll', () => {
-  navW.classList.toggle('scrolled', window.scrollY > 80);
-}, { passive: true });
+const nav = document.getElementById('nav');
+const logo = nav.querySelector('.nav-logo-svg');
+const whitePaths = logo.querySelectorAll('path[fill="white"]');
 
-// Dropdowns
-function toggleDrop(el) {
-  const menu = el.nextElementSibling;
-  const wasOpen = menu.classList.contains('open');
-  document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
-  if (!wasOpen) menu.classList.add('open');
-}
-document.querySelectorAll('.dropdown-menu li').forEach(li => {
-  li.addEventListener('click', () => {
-    const toggle = li.closest('.dropdown').querySelector('.dropdown-toggle');
-    const svg = toggle.querySelector('svg').outerHTML;
-    toggle.innerHTML = li.textContent + ' ' + svg;
-    li.closest('.dropdown-menu').classList.remove('open');
-  });
-});
-document.addEventListener('click', e => {
-  if (!e.target.closest('.dropdown')) {
-    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    nav.classList.add('scrolled');
+    whitePaths.forEach(p => p.setAttribute('fill', '#1a1a1a'));
+  } else {
+    nav.classList.remove('scrolled');
+    whitePaths.forEach(p => p.setAttribute('fill', 'white'));
   }
 });
+
+// Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  nav.classList.toggle('mobile-open');
+});
+
+// Fade-up on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
